@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Svg, Path } from 'react-native-svg';
-import { IconBase } from '../../Components/Icon/icon';
+import { IconBase } from '../../components/Icon/Icon';
 
 export function FlashOnIcon({ size = 20, color = 'black' }: IconBase) {
   return (

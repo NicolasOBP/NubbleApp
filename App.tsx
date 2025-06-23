@@ -1,10 +1,10 @@
 import { SafeAreaView, View } from 'react-native';
-import { Text } from './src/Components/Text/text';
-import { Button } from './src/Components/Button/button';
+import { Text } from './src/components/Text/Text';
+import { Button } from './src/components/Button/Button';
 import { ThemeProvider } from '@shopify/restyle';
 import { theme } from './src/theme/theme';
-import { Icon } from './src/Components/Icon/icon';
-import { TextInput } from './src/Components/TextInput/textInput';
+import { Icon } from './src/components/Icon/Icon';
+import { TextInput } from './src/components/TextInput/TextInput';
 
 function App() {
   return (

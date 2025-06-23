@@ -4,44 +4,41 @@ import { Button } from './src/Components/Button/button';
 import { ThemeProvider } from '@shopify/restyle';
 import { theme } from './src/theme/theme';
 import { Icon } from './src/Components/Icon/icon';
-import { Box } from './src/Components/Box/box';
+import { TextInput } from './src/Components/TextInput/textInput';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView>
         <View style={{ paddingHorizontal: 24 }}>
-          <Text preset="headingLarge">Coffstack</Text>
+          <Text mb="s8" preset="headingLarge">
+            Olá
+          </Text>
+          <Text mb="s40" preset="paragraphLarge">
+            Digite seu e-mail e senha para entrar
+          </Text>
 
-          <Button title="Entrar" marginBottom="s10" />
+          <TextInput
+            label="Email"
+            placeholder="Digite seu e-mail"
+            errorMessage="Erro"
+            boxProps={{ mb: 's20' }}
+          />
 
-          <Button disabled title="Entrar" marginBottom="s10" />
+          <TextInput
+            RighComponent={<Icon name="eyeOn" color="gray2" />}
+            label="Senha"
+            placeholder="Digite sua senha"
+            boxProps={{ mb: 's10' }}
+          />
 
-          <Button title="Entrar" loading marginBottom="s10" />
+          <Text color="primary" preset="paragraphSmall" bold>
+            Esqueci minha senha
+          </Text>
 
-          <Button title="Outline" preset="outline" marginBottom="s10" />
-          <Button title="Outline" preset="outline" loading />
+          <Button mt="s48" title="Entrar" />
+          <Button mt="s12" title="Criar uma Conta" preset="outline" />
         </View>
-
-        <Box flexDirection="row">
-          <Icon name="eyeOn" color="error" size={50} />
-          <Icon name="eyeOff" color="error" size={50} />
-          <Icon name="chevronRight" color="error" size={50} />
-          <Icon name="heartFill" color="error" size={50} />
-          <Icon name="profile" color="error" size={50} />
-          <Icon name="profileFill" color="error" size={50} />
-          <Icon name="heart" color="error" size={50} />
-        </Box>
-        <Box flexDirection="row">
-          <Icon name="newPost" color="error" size={50} />
-          <Icon name="camera" color="error" size={50} />
-          <Icon name="chat" color="error" size={50} />
-          <Icon name="chatOn" color="error" size={50} />
-          <Icon name="flashOff" color="error" size={50} />
-          <Icon name="flashOn" color="error" size={50} />
-          <Icon name="bell" color="error" size={50} />
-          <Icon name="bellOn" color="backgroundContrast" size={50} />
-        </Box>
       </SafeAreaView>
     </ThemeProvider>
   );

@@ -30,11 +30,6 @@ export function Screen({
 
   const Container = scrollable ? ScroolViewContainer : ViewContaienr;
 
-  console.log({
-    device: Platform.OS,
-    pad: top,
-  });
-
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}

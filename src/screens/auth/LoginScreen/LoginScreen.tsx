@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text } from '../../../components/Text/Text';
 import { TextInput } from '../../../components/TextInput/TextInput';
 import { Button } from '../../../components/Button/Button';
@@ -17,16 +17,6 @@ type LoginFormType = {
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
 export function LoginScreen({ navigation }: ScreenProps) {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
-  // const [emailErrorMessage, setEmailErrorMessage] = useState('');
-
-  // useEffect(() => {
-  //   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-  //   setEmailErrorMessage(isValidEmail ? '' : 'E-mail inválido');
-  // }, [email]);
-
   const { control, formState, handleSubmit } = useForm<LoginFormType>({
     defaultValues: {
       email: '',
@@ -77,13 +67,27 @@ export function LoginScreen({ navigation }: ScreenProps) {
         )}
       />
 
-      {/* <PasswordInput
-        value={password}
-        onChangeText={setPassword}
-        label="Senha"
-        placeholder="Digite sua senha"
-        boxProps={{ mb: 's10' }}
-      /> */}
+      <Controller
+        control={control}
+        name="password"
+        rules={{
+          required: 'Senha obrigatória',
+          minLength: {
+            value: 8,
+            message: 'Senha deve ter pelo menos 8 caracteres',
+          },
+        }}
+        render={({ field, fieldState }) => (
+          <PasswordInput
+            errorMessage={fieldState.error?.message}
+            value={field.value}
+            onChangeText={field.onChange}
+            label="Senha"
+            placeholder="Digite sua senha"
+            boxProps={{ mb: 's10' }}
+          />
+        )}
+      />
 
       <Text
         onPress={navigateToForgotPasswordScreen}
@@ -95,7 +99,6 @@ export function LoginScreen({ navigation }: ScreenProps) {
       </Text>
 
       <Button
-        // disabled={!!emailErrorMessage || password.length < 6}
         disabled={!formState.isValid}
         mt="s48"
         title="Entrar"

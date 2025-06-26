@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../Box/Box';
+import { Box, TouchableOpacityBox } from '../Box/Box';
 ('react-native-safe-area-context');
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useAppSafeArea } from '../../hooks/useAppSafeArea';
@@ -10,6 +10,7 @@ import {
   ViewContaienr,
 } from './components/ScreenContainer';
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useNavigation } from '@react-navigation/native';
 
 interface ScreenProps {
   children: React.ReactNode;
@@ -24,6 +25,8 @@ export function Screen({
 }: ScreenProps) {
   const { top, bottom } = useAppSafeArea();
   const { colors } = useAppTheme();
+
+  const navigation = useNavigation();
 
   const Container = scrollable ? ScroolViewContainer : ViewContaienr;
 
@@ -43,12 +46,16 @@ export function Screen({
           style={{ paddingTop: top, paddingBottom: bottom }}
         >
           {canGoBack && (
-            <Box mb="s24" flexDirection="row">
+            <TouchableOpacityBox
+              onPress={navigation.goBack}
+              mb="s24"
+              flexDirection="row"
+            >
               <Icon name="arrowLeft" color="primary" />
               <Text preset="paragraphMedium" semibold ml="s8">
                 Voltar
               </Text>
-            </Box>
+            </TouchableOpacityBox>
           )}
           {children}
         </Box>

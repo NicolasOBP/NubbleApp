@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text } from '../../../components/Text/Text';
 import { TextInput } from '../../../components/TextInput/TextInput';
 import { Button } from '../../../components/Button/Button';
@@ -6,10 +6,25 @@ import { Screen } from '../../../components/Screen/Screen';
 import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../routes/Routes';
+import { Alert } from 'react-native';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
 export function LoginScreen({ navigation }: ScreenProps) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+
+  useEffect(() => {
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    setEmailErrorMessage(isValidEmail ? '' : 'E-mail inválido');
+  }, [email]);
+
+  function submitForm() {
+    Alert.alert(`Email: ${email} ${'\n'} Senha: ${password}`);
+  }
+
   function navigateToSignUpScreen() {
     navigation.navigate('SignupScreen');
   }
@@ -27,13 +42,17 @@ export function LoginScreen({ navigation }: ScreenProps) {
       </Text>
 
       <TextInput
+        value={email}
+        onChangeText={setEmail}
         label="Email"
         placeholder="Digite seu e-mail"
-        errorMessage="Erro"
+        errorMessage={emailErrorMessage}
         boxProps={{ mb: 's20' }}
       />
 
       <PasswordInput
+        value={password}
+        onChangeText={setPassword}
         label="Senha"
         placeholder="Digite sua senha"
         boxProps={{ mb: 's10' }}
@@ -48,7 +67,12 @@ export function LoginScreen({ navigation }: ScreenProps) {
         Esqueci minha senha
       </Text>
 
-      <Button mt="s48" title="Entrar" />
+      <Button
+        disabled={!!emailErrorMessage || password.length < 6}
+        mt="s48"
+        title="Entrar"
+        onPress={submitForm}
+      />
       <Button
         onPress={navigateToSignUpScreen}
         mt="s12"

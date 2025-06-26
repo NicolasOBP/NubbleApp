@@ -6,6 +6,7 @@ import { Button } from '../../../components/Button/Button';
 import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
 import { useResetNavigationSuccess } from '../../../hooks/useResetNavigationSuccess';
 import { Controller, useForm } from 'react-hook-form';
+import { FormTextInput } from '../../../components/Form/FormTextInput';
 
 type SignUpFormType = {
   username: string;
@@ -43,20 +44,13 @@ export function SignUpScreen() {
         Criar uma conta
       </Text>
 
-      <Controller
+      <FormTextInput
         control={control}
         name="username"
         rules={{ required: 'Username Obrigatório' }}
-        render={({ field, fieldState }) => (
-          <TextInput
-            value={field.value}
-            onChangeText={field.onChange}
-            errorMessage={fieldState.error?.message}
-            boxProps={{ mb: 's20' }}
-            label="Seu username"
-            placeholder="@"
-          />
-        )}
+        boxProps={{ mb: 's20' }}
+        label="Seu username"
+        placeholder="@"
       />
 
       <Controller
@@ -65,6 +59,7 @@ export function SignUpScreen() {
         rules={{ required: 'Nome obrigatório' }}
         render={({ field, fieldState }) => (
           <TextInput
+            autoCapitalize="words"
             value={field.value}
             onChangeText={field.onChange}
             errorMessage={fieldState.error?.message}

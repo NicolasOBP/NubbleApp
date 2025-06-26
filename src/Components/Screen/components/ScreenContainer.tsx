@@ -17,5 +17,5 @@ export function ScroolViewContainer({ children, backgroundColor }: Props) {
   );
 }
 export function ViewContaienr({ children, backgroundColor }: Props) {
-  return <View style={{ backgroundColor }}>{children}</View>;
+  return <View style={{ backgroundColor, flex: 1 }}>{children}</View>;
 }

@@ -1,11 +1,13 @@
 import React from 'react';
-import { ButtonPreset, buttonPresets } from './buttonPresets';
+
 import {
   ActivityIndicator,
   Text,
   TouchableOpacityBox,
   TouchableOpacityBoxProps,
 } from '@components';
+
+import { ButtonPreset, buttonPresets } from './buttonPresets';
 
 interface ButtonProps extends TouchableOpacityBoxProps {
   title: string;

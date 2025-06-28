@@ -1,9 +1,12 @@
 import React from 'react';
 ('react-native-safe-area-context');
-import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+
 import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 import { useAppSafeArea, useAppTheme } from '@hooks';
+
 import {
   ScroolViewContainer,
   ViewContaienr,

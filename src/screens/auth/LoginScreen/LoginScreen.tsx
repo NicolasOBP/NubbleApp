@@ -5,13 +5,13 @@ import {
   FormTextInput,
   Screen,
   Text,
-} from '@components/';
+} from '@components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../routes/Routes';
 import { Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { loginSchema, LoginSchema } from './loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RootStackParamList } from '@routes';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
@@ -30,7 +30,7 @@ export function LoginScreen({ navigation }: ScreenProps) {
   }
 
   function navigateToSignUpScreen() {
-    navigation.navigate('SignupScreen');
+    navigation.navigate('SignUpScreen');
   }
   function navigateToForgotPasswordScreen() {
     navigation.navigate('ForgotPasswordScreen');

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createText, TextProps as SRTextPros } from '@shopify/restyle';
 import { TextProps as RNTextProps, TextStyle } from 'react-native';
-import { Theme } from '../../theme/theme';
+import { Theme } from '@theme';
 
 const SRText = createText<Theme>();
 

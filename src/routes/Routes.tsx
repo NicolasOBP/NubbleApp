@@ -1,15 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { LoginScreen } from '../screens/auth/LoginScreen/LoginScreen';
-import { SignUpScreen } from '../screens/auth/SignUpScreen/SignUpScreen';
-import { SuccessScreen } from '../screens/auth/SuccessScreen/SuccessScreen';
-import { IconProps } from '../components/Icon/Icon';
-import { ForgotPasswordScreen } from '../screens/auth/ForgotPasswordScreen/ForgotPasswordScreen';
+import {
+  ForgotPasswordScreen,
+  LoginScreen,
+  SignUpScreen,
+  SuccessScreen,
+} from '@screens';
+import { IconProps } from '@components';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
-  SignupScreen: undefined;
+  SignUpScreen: undefined;
   SuccessScreen: {
     title: string;
     description: string;
@@ -28,7 +30,7 @@ export function Routes() {
         initialRouteName="LoginScreen"
       >
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignupScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
         <Stack.Screen
           name="ForgotPasswordScreen"

@@ -12,9 +12,9 @@ import {
   SpacingShorthandProps,
   LayoutProps,
 } from '@shopify/restyle';
-import { Theme } from '../../theme/theme';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import React from 'react';
+import { Theme } from '@theme';
 
 export const Box = createBox<Theme>();
 export type BoxProps = React.ComponentProps<typeof Box>;

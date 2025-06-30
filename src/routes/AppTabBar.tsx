@@ -29,8 +29,6 @@ export function AppTabBar({
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
 
-        console.log(route.name);
-
         const tabItem =
           mapScreenToProps[route.name as keyof AppTabBottomTabParamList];
 
@@ -44,11 +42,7 @@ export function AppTabBar({
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate({
-              name: route.name,
-              params: route.params,
-              merge: true,
-            });
+            navigation.navigate(route.name, route.params);
           }
         };
 
@@ -67,6 +61,7 @@ export function AppTabBar({
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
+            key={index}
           >
             <Icon
               name={isFocused ? tabItem.icon.focused : tabItem.icon.unfocused}

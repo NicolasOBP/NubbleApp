@@ -13,6 +13,7 @@ module.exports = {
           '@routes': './src/routes',
           '@screens': './src/screens',
           '@theme': './src/theme',
+          '@domain': './src/domain',
         },
       },
     ],

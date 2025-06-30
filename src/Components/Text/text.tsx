@@ -7,7 +7,7 @@ import { Theme } from '@theme';
 
 const SRText = createText<Theme>();
 
-interface TextProps extends RNTextProps, SRTextPros<Theme> {
+export interface TextProps extends RNTextProps, SRTextPros<Theme> {
   preset?: TextVariants;
   bold?: boolean;
   italic?: boolean;

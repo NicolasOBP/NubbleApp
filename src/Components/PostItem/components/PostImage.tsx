@@ -8,6 +8,7 @@ type Props = Pick<Post, 'imageURL'>;
 export function PostImage({ imageURL }: Props) {
   return (
     <Image
+      style={{ marginHorizontal: -24 }}
       source={{ uri: imageURL }}
       width={Dimensions.get('screen').width}
       height={300}

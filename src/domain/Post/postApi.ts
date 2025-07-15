@@ -1,11 +1,9 @@
-import { API, PageAPI } from '@api';
+import { API, PageAPI, PageParams } from '@api';
 
 import { PostAPI } from './postTypes';
 
-async function getList(): Promise<PageAPI<PostAPI>> {
-  const response = await API.get<PageAPI<PostAPI>>('/user/post');
-
-  await new Promise(resolve => setTimeout(() => resolve(''), 2000));
+async function getList(params?: PageParams): Promise<PageAPI<PostAPI>> {
+  const response = await API.get<PageAPI<PostAPI>>('/user/post', { params });
 
   return response.data;
 }

@@ -18,6 +18,7 @@
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/native-stack": "^7.3.21",
     "@shopify/restyle": "^2.4.5",
+    "axios": "^1.10.0",
     "react": "19.1.0",
     "react-hook-form": "^7.58.1",
     "react-native": "0.80.0",

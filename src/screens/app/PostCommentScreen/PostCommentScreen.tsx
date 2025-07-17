@@ -9,6 +9,7 @@ export function PostCommentScreen({
   route,
 }: AppScreenProps<'PostCommentScreen'>) {
   console.log(route.params.postId);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { list } = usePostCommentList(route.params.postId);
 
   return (

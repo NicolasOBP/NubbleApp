@@ -13,7 +13,7 @@ export function PostCommentBottom({ fetchNextPage, hasNextPage }: Props) {
 
   return (
     <Pressable onPress={fetchNextPage}>
-      <Text mb="s16" textAlign="center" bold color="primary">
+      <Text textAlign="center" bold color="primary">
         Ver mais
       </Text>
     </Pressable>

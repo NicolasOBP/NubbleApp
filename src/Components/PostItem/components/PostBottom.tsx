@@ -10,7 +10,10 @@ type Props = Pick<Post, 'author' | 'commentCount' | 'text' | 'id'>;
 export function PostBottom({ author, commentCount, text, id }: Props) {
   const naviation = useNavigation();
   function navigateToPostCommentScreen() {
-    naviation.navigate('PostCommentScreen', { postId: id });
+    naviation.navigate('PostCommentScreen', {
+      postId: id,
+      postAuthorId: author.id,
+    });
   }
 
   const commentText = getCommentText(commentCount);

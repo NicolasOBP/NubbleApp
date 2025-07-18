@@ -1,3 +1,4 @@
+import { ToastProvider } from '@service';
 import { ThemeProvider } from '@shopify/restyle';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -10,8 +11,10 @@ function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>
-        <Routes />
-        <Toast />
+        <ToastProvider>
+          <Routes />
+          <Toast />
+        </ToastProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

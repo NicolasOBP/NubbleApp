@@ -1,4 +1,4 @@
-import { ToastProvider } from '@service';
+// import { ToastProvider } from '@service';
 import { ThemeProvider } from '@shopify/restyle';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -11,10 +11,12 @@ function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>
-        <ToastProvider>
-          <Routes />
-          <Toast />
-        </ToastProvider>
+        {/* Only use ToastProvider if it is using Context implementation.
+        Zustand implementation doesn't need a provider */}
+        {/* <ToastProvider> */}
+        <Routes />
+        <Toast />
+        {/* </ToastProvider> */}
       </ThemeProvider>
     </SafeAreaProvider>
   );

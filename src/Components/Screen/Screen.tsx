@@ -5,7 +5,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Box, BoxProps } from '@components';
 import { useAppSafeArea, useAppTheme } from '@hooks';
 
-import { ScroolViewContainer, ViewContaienr, ScreenHeader } from './components';
+import { ScrollViewContainer, ViewContaienr, ScreenHeader } from './components';
 
 export interface ScreenProps extends BoxProps {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export function Screen({
   const { top, bottom } = useAppSafeArea();
   const { colors } = useAppTheme();
 
-  const Container = scrollable ? ScroolViewContainer : ViewContaienr;
+  const Container = scrollable ? ScrollViewContainer : ViewContaienr;
 
   return (
     <KeyboardAvoidingView

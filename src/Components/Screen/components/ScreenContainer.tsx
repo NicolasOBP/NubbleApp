@@ -6,7 +6,7 @@ interface Props {
   backgroundColor: string;
 }
 
-export function ScroolViewContainer({ children, backgroundColor }: Props) {
+export function ScrollViewContainer({ children, backgroundColor }: Props) {
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"

@@ -2,7 +2,7 @@ import { dateUtils } from '@utils';
 
 import { PostComment, PostCommentAPI } from './postCommentTypes';
 
-export function toPostComment(postCommentAPI: PostCommentAPI): PostComment {
+function toPostComment(postCommentAPI: PostCommentAPI): PostComment {
   return {
     id: postCommentAPI.id,
     message: postCommentAPI.message,

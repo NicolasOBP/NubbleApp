@@ -1,65 +1,48 @@
 import { useEffect, useState } from 'react';
 
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Page } from '@types';
 
+interface usePaginatedListResult<TData> {
+  list: TData[];
+  isError: boolean | null;
+  isLoading: boolean;
+  refresh: () => void;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+}
+
 export function usePaginatedList<Data>(
+  queryKey: readonly unknown[],
   getList: (page: number) => Promise<Page<Data>>,
-) {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean | null>(null);
+): usePaginatedListResult<Data> {
   const [list, setList] = useState<Data[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
-  async function fetchData() {
-    try {
-      setError(null);
-      setLoading(true);
-      const { data, meta } = await getList(1);
-      setList(data);
-      if (meta.hasNextPage) {
-        setPage(2);
-        setHasNextPage(true);
-      } else {
-        setHasNextPage(false);
-      }
-    } catch (err) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function fetchNextPage() {
-    if (loading || !hasNextPage) return;
-
-    try {
-      setLoading(true);
-      const { data, meta } = await getList(page);
-      setList(prev => [...prev, ...data]);
-      if (meta.hasNextPage) {
-        setPage(prev => prev + 1);
-      } else {
-        setHasNextPage(false);
-      }
-    } catch (err) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const query = useInfiniteQuery({
+    queryKey,
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => getList(pageParam),
+    getNextPageParam: ({ meta }) =>
+      meta.hasNextPage ? meta.currentPage + 1 : null,
+  });
 
   useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (query.data) {
+      const newList = query.data.pages.reduce<Data[]>((prev, corr) => {
+        return [...prev, ...corr.data];
+      }, []);
+
+      setList(newList);
+      console.log(query.data);
+    }
+  }, [query.data]);
 
   return {
     list,
-    error,
-    loading,
-    refresh: fetchData,
-    fetchNextPage,
-    hasNextPage,
+    isError: query.isError,
+    isLoading: query.isLoading,
+    refresh: query.refetch,
+    fetchNextPage: query.fetchNextPage,
+    hasNextPage: !!query.hasNextPage,
   };
 }

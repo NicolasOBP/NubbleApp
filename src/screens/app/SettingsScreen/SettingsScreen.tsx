@@ -1,20 +1,19 @@
 import React from 'react';
 
-import { Button, Screen, Text } from '@components';
+import { useAuthSignOut } from '@domain';
+
+import { Button, Screen } from '@components';
 import { AppScreenProps } from '@routes';
 
 export function SettingsScreen({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
 }: AppScreenProps<'SettingsScreen'>) {
+  const { signOut, isLoading } = useAuthSignOut();
+
   return (
-    <Screen canGoBack>
-      <Text preset="headingSmall">Settings Screen</Text>
-      <Button
-        title="New Post"
-        onPress={() =>
-          navigation.navigate('AppTabNavigator', { screen: 'FavoriteScreen' })
-        }
-      />
+    <Screen canGoBack title="Configurações">
+      <Button loading={isLoading} title="Sair da conta" onPress={signOut} />
     </Screen>
   );
 }

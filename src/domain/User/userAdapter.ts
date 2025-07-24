@@ -1,5 +1,8 @@
 import { User, UserAPI } from './userTypes';
 
+/**
+ * @description Adapta o UserAPI para o modelo de User
+ */
 export function toUser(userApi: UserAPI): User {
   return {
     email: userApi.email,

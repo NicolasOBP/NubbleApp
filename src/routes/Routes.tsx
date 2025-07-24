@@ -9,6 +9,7 @@ import { AuthStack } from './AuthStack';
 export function Routes() {
   // const authenticated = false;
   const { authCredentials } = useAuthCredentials();
+
   return (
     <NavigationContainer>
       {authCredentials ? <AppStack /> : <AuthStack />}

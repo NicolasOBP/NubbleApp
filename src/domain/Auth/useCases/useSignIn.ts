@@ -19,6 +19,9 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
         options.onError(error.message);
       }
     },
+
+    onSuccess: authCredentials =>
+      authService.updateToken(authCredentials.token),
   });
 
   return {

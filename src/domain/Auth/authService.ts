@@ -1,3 +1,5 @@
+import { API } from '@api';
+
 import { authAdapter } from './authAdapter';
 import { authApi } from './authApi';
 import { AuthCredentials } from './authTypes';
@@ -21,4 +23,12 @@ async function signOut(): Promise<string> {
   return message;
 }
 
-export const authService = { signIn, signOut };
+function updateToken(token: string) {
+  API.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+function removeToken() {
+  API.defaults.headers.common.Authorization = null;
+}
+
+export const authService = { signIn, signOut, updateToken, removeToken };

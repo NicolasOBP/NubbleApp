@@ -33,7 +33,6 @@ export function usePaginatedList<Data>(
       }, []);
 
       setList(newList);
-      console.log(query.data);
     }
   }, [query.data]);
 

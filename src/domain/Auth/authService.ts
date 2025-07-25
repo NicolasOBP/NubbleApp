@@ -24,6 +24,7 @@ async function signOut(): Promise<string> {
 }
 
 function updateToken(token: string) {
+  console.log(token);
   API.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 

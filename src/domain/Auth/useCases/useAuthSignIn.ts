@@ -25,7 +25,6 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
 
     onSuccess: authCredentials => {
       saveCredentials(authCredentials);
-      authService.updateToken(authCredentials.token);
     },
   });
 

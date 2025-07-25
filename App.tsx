@@ -1,4 +1,5 @@
 // import { ToastProvider } from '@service';
+import { AuthCredentialsProvider } from '@service';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -12,18 +13,20 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <ThemeProvider theme={theme}>
-          {/* Only use ToastProvider if it is using Context implementation.
+    <AuthCredentialsProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <ThemeProvider theme={theme}>
+            {/* Only use ToastProvider if it is using Context implementation.
         Zustand implementation doesn't need a provider */}
-          {/* <ToastProvider> */}
-          <Routes />
-          <Toast />
-          {/* </ToastProvider> */}
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+            {/* <ToastProvider> */}
+            <Routes />
+            <Toast />
+            {/* </ToastProvider> */}
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </AuthCredentialsProvider>
   );
 }
 

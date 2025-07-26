@@ -1,5 +1,8 @@
-// import { ToastProvider } from '@service';
-import { AuthCredentialsProvider } from '@service';
+import {
+  AuthCredentialsProvider,
+  initializeStorate,
+  MMKVStorage,
+} from '@service';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -11,6 +14,7 @@ import { theme } from './src/theme/theme';
 
 const queryClient = new QueryClient();
 
+initializeStorate(MMKVStorage);
 function App() {
   return (
     <AuthCredentialsProvider>

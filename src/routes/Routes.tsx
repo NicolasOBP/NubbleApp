@@ -9,7 +9,6 @@ import { AppStack } from './AppStack';
 import { AuthStack } from './AuthStack';
 
 export function Routes() {
-  // const authenticated = false;
   const { authCredentials, isLoading } = useAuthCredentials();
 
   if (isLoading) {

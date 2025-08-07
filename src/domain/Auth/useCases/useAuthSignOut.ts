@@ -13,5 +13,9 @@ export function useAuthSignOut() {
     onSuccess: removeCredentials,
   });
 
-  return { signOut: () => mutate(), isLoading: isPending };
+  function signOut() {
+    mutate();
+  }
+
+  return { signOut, isLoading: isPending };
 }

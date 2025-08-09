@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { useAuthSignUp } from '@domain';
+import { useAuthIsUsernameAvailable, useAuthSignUp } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -40,7 +41,7 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
       reset(resetParam);
     },
   });
-  const { control, formState, handleSubmit } = useForm<SignUpSchema>({
+  const { control, formState, handleSubmit, watch } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues,
     mode: 'onChange',
@@ -49,6 +50,9 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   function submitForm(formValues: SignUpSchema) {
     signUp(formValues);
   }
+  const username = watch('username');
+
+  const usernameQuery = useAuthIsUsernameAvailable({ username });
 
   return (
     <Screen canGoBack scrollable>
@@ -62,6 +66,11 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         boxProps={{ mb: 's20' }}
         label="Seu username"
         placeholder="@"
+        RighComponent={
+          usernameQuery.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormTextInput

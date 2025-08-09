@@ -13,6 +13,11 @@ export interface AuthCredentialsAPI {
   user: UserAPI;
 }
 
+export interface FieldIsAvailableAPI {
+  message: string;
+  isAvailable: boolean;
+}
+
 export interface SingInData {
   username?: string;
   email?: string;

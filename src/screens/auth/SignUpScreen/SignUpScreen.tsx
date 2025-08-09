@@ -72,6 +72,9 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         boxProps={{ mb: 's20' }}
         label="Seu username"
         placeholder="@"
+        errorMessage={
+          usernameQuery.isUnavailable ? 'Username indisponível' : undefined
+        }
         RighComponent={
           usernameQuery.isFetching ? (
             <ActivityIndicator size="small" />
@@ -115,7 +118,11 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
 
       <Button
         loading={isLoading}
-        disabled={!formState.isValid || usernameQuery.isFetching}
+        disabled={
+          !formState.isValid ||
+          usernameQuery.isFetching ||
+          usernameQuery.isUnavailable
+        }
         title="Criar uma conta"
         onPress={handleSubmit(submitForm)}
       />

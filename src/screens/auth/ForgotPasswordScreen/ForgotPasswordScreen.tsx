@@ -1,22 +1,32 @@
 import React from 'react';
 
+import { useAuthRequestNewPassword } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useToastService } from '@service';
 import { useForm } from 'react-hook-form';
 
 import { Button, FormTextInput, Screen, Text } from '@components';
 import { useResetNavigationSuccess } from '@hooks';
-import { AuthScreenProps } from '@routes';
+import { AuthScreenProps, AuthStackParamList } from '@routes';
 
 import {
   forgotPasswordSchema,
   ForgotPasswordSchema,
 } from './forgotPasswordSchema';
 
-export function ForgotPasswordScreen({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  navigation,
-}: AuthScreenProps<'ForgotPasswordScreen'>) {
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  description: 'Clique no link enviado no seu e-mail para recuperar sua senha',
+  title: 'Enviamos as instruções para seu e-mail',
+  icon: { name: 'messageRound', color: 'primary' },
+};
+
+export function ForgotPasswordScreen({}: AuthScreenProps<'ForgotPasswordScreen'>) {
   const { reset } = useResetNavigationSuccess();
+  const { showToast } = useToastService();
+  const { isLoading, requestNewPassword } = useAuthRequestNewPassword({
+    onSuccess: () => reset(resetParam),
+    onError: message => showToast({ message, type: 'error' }),
+  });
   const { control, formState, handleSubmit } = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -26,16 +36,9 @@ export function ForgotPasswordScreen({
   });
 
   function submitForm(formValues: ForgotPasswordSchema) {
-    // TODO: implementar
+    console.log(formValues.email);
 
-    console.log(formValues);
-
-    reset({
-      description:
-        'Clique no link enviado no seu e-mail para recuperar sua senha',
-      title: 'Enviamos as instruções para seu e-mail',
-      icon: { name: 'messageRound', color: 'primary' },
-    });
+    requestNewPassword(formValues.email);
   }
 
   return (
@@ -56,6 +59,7 @@ export function ForgotPasswordScreen({
       />
 
       <Button
+        loading={isLoading}
         disabled={!formState.isValid}
         title="Recuperar senha"
         onPress={handleSubmit(submitForm)}

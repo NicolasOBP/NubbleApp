@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 
+import { API } from '@api';
 import { AuthCredentials, authService } from '@domain';
 
 import { authCredentialsStorage } from '../authCredentialsStorage';
@@ -22,14 +23,42 @@ export function AuthCredentialsProvider({
     startAuthCredentials();
   }, []);
 
+  useEffect(() => {
+    const interceptor = API.interceptors.response.use(
+      response => response,
+      async responseError => {
+        if (responseError.response.status === 401) {
+          console.log(responseError.response.status);
+
+          if (!authCredentials?.refreshToken) {
+            removeCredentials();
+
+            return Promise.reject(responseError);
+          }
+
+          const failedRequest = responseError.config;
+
+          const newAuthCredentions =
+            await authService.authenticateByRefreshToken(
+              authCredentials?.refreshToken,
+            );
+          saveCredentials(newAuthCredentions);
+
+          failedRequest.headers.Authorization = `Bearer ${newAuthCredentions.token}`;
+
+          return API(failedRequest);
+        }
+      },
+    );
+
+    return () => API.interceptors.response.eject(interceptor);
+  }, [authCredentials?.refreshToken]);
+
   async function startAuthCredentials() {
     try {
       const ac = await authCredentialsStorage.get();
 
       if (ac) {
-        console.log(ac);
-        console.log(ac.token);
-
         authService.updateToken(ac.token);
         setAuthCredentials(ac);
       }

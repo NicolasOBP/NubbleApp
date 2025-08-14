@@ -36,8 +36,6 @@ export function ForgotPasswordScreen({}: AuthScreenProps<'ForgotPasswordScreen'>
   });
 
   function submitForm(formValues: ForgotPasswordSchema) {
-    console.log(formValues.email);
-
     requestNewPassword(formValues.email);
   }
 

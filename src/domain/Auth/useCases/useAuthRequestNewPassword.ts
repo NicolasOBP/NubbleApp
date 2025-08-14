@@ -11,7 +11,6 @@ export function useAuthRequestNewPassword(options?: MutationOptions<string>) {
       if (options?.onError) {
         options?.onError(error.message);
       }
-      console.log(error);
     },
     onSuccess: message => {
       if (options?.onSuccess) {

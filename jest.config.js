@@ -1,6 +1,8 @@
 module.exports = {
   preset: 'react-native',
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
   collectCoverageFrom: ['src/{components,utils}/**/*.{js,jsx,ts,tsx}'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(@react-native|react-native|@react-navigation)/)',
+  ],
 };

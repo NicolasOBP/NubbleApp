@@ -5,4 +5,5 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|@react-navigation)/)',
   ],
+  moduleDirectories: ['node_modules', './src/test'],
 };

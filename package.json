@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --verbose",
+    "coverage": "jest --verbose --coverage",
     "prepare": "husky",
     "art:3333": "adb reverse tcp:3333 tcp:3333"
   },

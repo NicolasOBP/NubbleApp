@@ -6,4 +6,5 @@ module.exports = {
     'node_modules/(?!(@react-native|react-native|@react-navigation)/)',
   ],
   moduleDirectories: ['node_modules', './src/test'],
+  modulePathIgnorePatterns: ['.*/mockedData/.*'],
 };

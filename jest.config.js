@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'react-native',
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
-  collectCoverageFrom: ['src/{components,utils}/**/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: ['src/{components,utils,hooks}/**/*.{js,jsx,ts,tsx}'],
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|@react-navigation)/)',
   ],

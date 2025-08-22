@@ -13,7 +13,11 @@ interface Variables {
 export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
   const { saveCredentials } = useAuthCredentials();
 
-  const { mutate, isPending } = useMutation<AuthCredentials, Error, Variables>({
+  const { mutate, isPending, isSuccess } = useMutation<
+    AuthCredentials,
+    Error,
+    Variables
+  >({
     mutationFn: ({ email, password }) => authService.signIn(email, password),
     retry: false,
 
@@ -31,5 +35,6 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
   return {
     signIn: (variables: Variables) => mutate(variables),
     isLoading: isPending,
+    isSuccess,
   };
 }

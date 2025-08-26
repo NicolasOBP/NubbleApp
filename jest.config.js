@@ -5,7 +5,7 @@ module.exports = {
     'src/{components,utils,hooks,domain}/**/*.{js,jsx,ts,tsx}',
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!(@react-native|react-native|@react-navigation)/)',
+    'node_modules/(?!(@react-native|react-native|@react-navigation|react-native-safe-area-context)/)',
   ],
   moduleDirectories: ['node_modules', './src/test'],
   modulePathIgnorePatterns: ['.*/mockedData/.*'],

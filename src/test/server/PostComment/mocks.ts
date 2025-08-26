@@ -43,4 +43,5 @@ const mockedPostCommentResponse: PageAPI<PostCommentAPI> = {
 export const mockedData = {
   POST_ID,
   mockedPostCommentResponse,
+  postCommentAPI,
 };

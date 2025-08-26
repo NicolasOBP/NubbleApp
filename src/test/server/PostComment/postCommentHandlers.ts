@@ -4,11 +4,36 @@ import { http, HttpResponse } from 'msw';
 
 import { mockedData } from './mocks';
 
+const FULL_URL = `${BASE_URL}${POST_COMMENT_PATH}`;
+
+let inMemoryResponse = { ...mockedData.mockedPostCommentResponse };
+
 export const postCommentHandlers = [
-  http.get(`${BASE_URL}${POST_COMMENT_PATH}`, async () => {
-    const response: PageAPI<PostCommentAPI> =
-      mockedData.mockedPostCommentResponse;
+  http.get(FULL_URL, async () => {
+    const response: PageAPI<PostCommentAPI> = inMemoryResponse;
 
     return HttpResponse.json(response, { status: 200 });
   }),
+
+  http.post<any, { post_id: number; message: string }>(
+    FULL_URL,
+    async ({ request }) => {
+      const body = await request.json();
+
+      const newPostCommentApi: PostCommentAPI = {
+        ...mockedData.postCommentAPI,
+        id: 999,
+        post_id: body.post_id,
+        message: body.message,
+      };
+
+      inMemoryResponse.data = [newPostCommentApi, ...inMemoryResponse.data];
+      inMemoryResponse.meta = {
+        ...inMemoryResponse.meta,
+        total: ++inMemoryResponse.meta.total,
+      };
+
+      return HttpResponse.json(newPostCommentApi, { status: 201 });
+    },
+  ),
 ];

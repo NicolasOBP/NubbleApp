@@ -60,7 +60,7 @@ export function renderScreen<T = unknown>(
   component: React.ReactElement<T>,
   options?: Omit<RenderOptions, 'wrapper'>,
 ) {
-  return render(component, { wrapper: wrapAllProviders(), ...options });
+  return render(component, { wrapper: wrapScreenProviders(), ...options });
 }
 
 function customRenderHook<Result, Props>(

@@ -1,3 +1,4 @@
+import { act } from 'react';
 import { Alert, AlertButton } from 'react-native';
 
 import { authCredentialsStorage } from '@service';
@@ -11,7 +12,10 @@ import {
 
 import { PostCommentScreen } from '../../PostCommentScreen';
 
-beforeAll(() => server.listen());
+beforeAll(() => {
+  jest.useFakeTimers();
+  server.listen();
+});
 
 afterEach(() => {
   server.resetHandlers();
@@ -21,6 +25,7 @@ afterEach(() => {
 afterAll(() => {
   server.close();
   jest.resetAllMocks();
+  jest.useRealTimers();
 });
 
 describe('integration: PostCommentScreen', () => {
@@ -119,5 +124,10 @@ describe('integration: PostCommentScreen', () => {
     expect(comments.length).toBe(1);
 
     // check if toast message appeared
+    await screen.findByTestId('toast-message');
+
+    act(() => jest.runAllTimers());
+
+    expect(screen.queryByTestId('toast-message')).toBeNull();
   });
 });

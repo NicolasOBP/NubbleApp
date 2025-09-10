@@ -1,0 +1,30 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  pull-request-checks:
+    runs-on: ubunto-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up node
+        uses: actions/setup-nove@v3
+        with:
+          node-version: '20'
+
+      - name: Install Packages
+        run: npm i
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run TypeScript compiler
+        run: npx tsc --noEmit
+
+      - name: Run Test
+        run: npm run test

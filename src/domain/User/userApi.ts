@@ -1,4 +1,4 @@
-import { API } from '@api';
+import { API, PageAPI } from '@api';
 
 import { UserAPI } from './userTypes';
 
@@ -10,6 +10,15 @@ async function getById(userId: string): Promise<UserAPI> {
   return response.data;
 }
 
+async function getList(search: string): Promise<PageAPI<UserAPI>> {
+  const response = await API.get<PageAPI<UserAPI>>(`${PATH}`, {
+    params: search,
+  });
+
+  return response.data;
+}
+
 export const userApi = {
   getById,
+  getList,
 };

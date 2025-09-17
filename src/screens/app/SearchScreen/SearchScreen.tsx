@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
 
+import { useUserSearch } from '@domain';
+
 import { Icon, Screen, Text, TextInput } from '@components';
+import { useDebounce } from '@hooks';
 import { AppScreenProps } from '@routes';
 
 export function SearchScreen({}: AppScreenProps<'SearchScreen'>) {
-  const [value, setValue] = useState('');
+  const [search, setSearch] = useState('');
+
+  const debouncedSearch = useDebounce(search, 1500);
+
+  const { list } = useUserSearch(debouncedSearch);
 
   return (
     <Screen
       canGoBack
       HeaderComponent={
         <TextInput
+          placeholder="Digite sua busca"
           LeftComponent={<Icon name="search" color="gray3" />}
-          value={value}
-          onChangeText={setValue}
+          value={search}
+          onChangeText={setSearch}
         />
       }
     >
       <Text>SearchScreen</Text>
+
+      {list.map(user => (
+        <Text key={user.id}>{user.username}</Text>
+      ))}
     </Screen>
   );
 }

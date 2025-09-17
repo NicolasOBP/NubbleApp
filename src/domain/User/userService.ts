@@ -11,7 +11,7 @@ async function getById(id: number): Promise<User> {
   return userAdapter.toUser(userAPI);
 }
 
-async function getList(search: string): Promise<Page<User>> {
+async function searchUser(search: string): Promise<Page<User>> {
   const userPageAPI = await userApi.getList(search);
 
   return apiAdapter.toPageModel(userPageAPI, userAdapter.toUser);
@@ -19,5 +19,5 @@ async function getList(search: string): Promise<Page<User>> {
 
 export const userService = {
   getById,
-  getList,
+  searchUser,
 };

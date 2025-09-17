@@ -12,7 +12,7 @@ async function getById(userId: string): Promise<UserAPI> {
 
 async function getList(search: string): Promise<PageAPI<UserAPI>> {
   const response = await API.get<PageAPI<UserAPI>>(`${PATH}`, {
-    params: search,
+    params: { search },
   });
 
   return response.data;

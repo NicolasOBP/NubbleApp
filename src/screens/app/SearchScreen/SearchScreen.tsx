@@ -9,9 +9,7 @@ import { AppScreenProps } from '@routes';
 
 export function SearchScreen({}: AppScreenProps<'SearchScreen'>) {
   const [search, setSearch] = useState('');
-
   const debouncedSearch = useDebounce(search, 1500);
-
   const { list } = useUserSearch(debouncedSearch);
 
   function renderItem({ item }: ListRenderItemInfo<User>) {

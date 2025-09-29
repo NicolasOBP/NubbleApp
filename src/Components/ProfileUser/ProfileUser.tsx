@@ -9,15 +9,21 @@ import {
   ProfileAvatar,
   PressableBox,
   PressableBoxProps,
+  ProfileAvatarProps,
+  Box,
 } from '@components';
 
 type ProfileUserProps = {
   user: Pick<User, 'username' | 'profileUrl' | 'id'>;
+  avatarProps?: Partial<Omit<ProfileAvatarProps, 'imageURL'>>;
+  RightComponent?: React.ReactElement;
 } & PressableBoxProps;
 
 export function ProfileUser({
   user,
   onPress,
+  avatarProps,
+  RightComponent,
   ...pressableBoxProps
 }: ProfileUserProps) {
   const navigation = useNavigation();
@@ -34,13 +40,17 @@ export function ProfileUser({
       flexDirection="row"
       alignItems="center"
       mb="s16"
+      justifyContent="space-between"
       onPress={navigateToProfileScreen}
       {...pressableBoxProps}
     >
-      <ProfileAvatar imageURL={user.profileUrl} />
-      <Text ml="s12" preset="paragraphMedium" semibold>
-        {user.username}
-      </Text>
+      <Box flexDirection="row" alignItems="center">
+        <ProfileAvatar {...avatarProps} imageURL={user.profileUrl} />
+        <Text ml="s12" preset="paragraphMedium" semibold>
+          {user.username}
+        </Text>
+      </Box>
+      {RightComponent}
     </PressableBox>
   );
 }

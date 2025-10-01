@@ -12,7 +12,7 @@ import { SearchHistory } from './components/SearchHistory';
 
 export function SearchScreen({}: AppScreenProps<'SearchScreen'>) {
   const [search, setSearch] = useState('');
-  const debouncedSearch = useDebounce(search, 1500);
+  const debouncedSearch = useDebounce(search);
   const { list } = useUserSearch(debouncedSearch);
   const { addUser } = useSearchHistoryService();
 
@@ -42,6 +42,7 @@ export function SearchScreen({}: AppScreenProps<'SearchScreen'>) {
         <SearchHistory />
       ) : (
         <FlatList
+          testID="test"
           data={list}
           renderItem={renderItem}
           keyExtractor={item => item.username}

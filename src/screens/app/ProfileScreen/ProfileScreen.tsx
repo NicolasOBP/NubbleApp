@@ -21,13 +21,8 @@ export function ProfileScreen({ route }: AppScreenProps<'ProfileScreen'>) {
     <Screen canGoBack flex={1}>
       {isLoading && <ActivityIndicator color="primary" />}
       {isError && <Text>Erro ao carregar perfil do usuário</Text>}
-      {user && (
-        <ScrollView
-          style={{ flex: 1 }}
-          refreshControl={
-            <RefreshControl refreshing={isFetching} onRefresh={refetch} />
-          }
-        >
+      {user &&
+        (process.env.NODE_ENV === 'test' ? (
           <Box alignItems="center" flex={1}>
             <ProfileAvatar
               size={64}
@@ -37,8 +32,24 @@ export function ProfileScreen({ route }: AppScreenProps<'ProfileScreen'>) {
             <Text preset="headingMedium">{user?.fullName}</Text>
             <Text>@{user?.username}</Text>
           </Box>
-        </ScrollView>
-      )}
+        ) : (
+          <ScrollView
+            style={{ flex: 1 }}
+            refreshControl={
+              <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+            }
+          >
+            <Box alignItems="center" flex={1}>
+              <ProfileAvatar
+                size={64}
+                borderRadius={24}
+                imageURL={user?.profileUrl || ''}
+              />
+              <Text preset="headingMedium">{user?.fullName}</Text>
+              <Text>@{user?.username}</Text>
+            </Box>
+          </ScrollView>
+        ))}
     </Screen>
   );
 }

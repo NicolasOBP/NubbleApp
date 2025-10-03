@@ -51,7 +51,7 @@ export const wrapScreenProviders = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <NavigationContainer>{children}</NavigationContainer>
-          <Toast/>
+          <Toast />
         </ThemeProvider>
       </QueryClientProvider>
     </AuthCredentialsProvider>

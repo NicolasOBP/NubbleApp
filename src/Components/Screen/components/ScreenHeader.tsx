@@ -23,6 +23,7 @@ export function ScreenHeader({ canGoBack, title, HeaderComponent }: Props) {
     >
       {canGoBack && (
         <TouchableOpacityBox
+          testID="screen-back-button"
           marginRight="s10"
           onPress={navigation.goBack}
           flexDirection="row"

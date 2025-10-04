@@ -16,4 +16,18 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
+jest.mock('@react-native-camera-roll/camera-roll', () => {
+  return {
+    CameraRoll: {
+      getPhotos: jest.fn(async () => ({
+        edges: [
+          { node: { image: { uri: 'photo1' } } },
+          { node: { image: { uri: 'photo2' } } },
+          { node: { image: { uri: 'photo3' } } },
+        ],
+      })),
+    },
+  };
+});
+
 initializeStorate(inMemoryStorage);

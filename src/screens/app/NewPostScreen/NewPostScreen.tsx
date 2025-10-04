@@ -13,7 +13,7 @@ const NUMBER_OF_COLUMNS = 4;
 const ITEM_WIDTH = SCREEN_WIDTH / NUMBER_OF_COLUMNS;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
-  const { list } = useCameraRoll();
+  const { photoList, fetchNextPage } = useCameraRoll(true);
 
   function renderItem({ item }: ListRenderItemInfo<string>) {
     return (
@@ -30,11 +30,13 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
     <Screen noPaddingHorizontal canGoBack title="Novo Post">
       <FlatList
         ListHeaderComponent={
-          <Header imageWidth={SCREEN_WIDTH} imageUri={list[0]} />
+          <Header imageWidth={SCREEN_WIDTH} imageUri={photoList[0]} />
         }
         numColumns={NUMBER_OF_COLUMNS}
-        data={list}
+        data={photoList}
         renderItem={renderItem}
+        onEndReachedThreshold={0.1}
+        onEndReached={fetchNextPage}
       />
     </Screen>
   );

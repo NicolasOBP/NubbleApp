@@ -43,6 +43,7 @@ export function Screen({
           {...boxProps}
         >
           <ScreenHeader
+            paddingHorizontal={noPaddingHorizontal ? 's24' : undefined}
             HeaderComponent={HeaderComponent}
             canGoBack={canGoBack}
             title={title}

@@ -6,6 +6,8 @@ import { useCameraRoll } from '@service';
 import { Screen } from '@components';
 import { AppTabScreenProps } from '@routes';
 
+import { Header } from './components/Header';
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const NUMBER_OF_COLUMNS = 4;
 const ITEM_WIDTH = SCREEN_WIDTH / NUMBER_OF_COLUMNS;
@@ -27,6 +29,9 @@ export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   return (
     <Screen noPaddingHorizontal canGoBack title="Novo Post">
       <FlatList
+        ListHeaderComponent={
+          <Header imageWidth={SCREEN_WIDTH} imageUri={list[0]} />
+        }
         numColumns={NUMBER_OF_COLUMNS}
         data={list}
         renderItem={renderItem}

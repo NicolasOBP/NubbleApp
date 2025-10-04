@@ -1,21 +1,36 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Dimensions, FlatList, Image, ListRenderItemInfo } from 'react-native';
 
 import { useCameraRoll } from '@service';
 
-import { Screen, Text } from '@components';
+import { Screen } from '@components';
 import { AppTabScreenProps } from '@routes';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const NUMBER_OF_COLUMNS = 4;
+const ITEM_WIDTH = SCREEN_WIDTH / NUMBER_OF_COLUMNS;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   const { list } = useCameraRoll();
 
+  function renderItem({ item }: ListRenderItemInfo<string>) {
+    return (
+      <Image
+        key={item}
+        source={{ uri: item }}
+        width={ITEM_WIDTH}
+        height={ITEM_WIDTH}
+      />
+    );
+  }
+
   return (
-    <Screen scrollable>
-      <Text preset="headingSmall">NewPost Screen</Text>
-      {list.map(photo => (
-        <Image key={photo} source={{ uri: photo }} width={200} height={200} />
-      ))}
+    <Screen noPaddingHorizontal canGoBack title="Novo Post">
+      <FlatList
+        numColumns={NUMBER_OF_COLUMNS}
+        data={list}
+        renderItem={renderItem}
+      />
     </Screen>
   );
 }

@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 
-import { useCameraRoll } from '@service';
+import { useCameraRoll, usePermission } from '@service';
 
 import { Screen } from '@components';
 import { AppTabScreenProps } from '@routes';
@@ -20,7 +20,11 @@ const ITEM_WIDTH = SCREEN_WIDTH / NUMBER_OF_COLUMNS;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function NewPostScreen(props: AppTabScreenProps<'NewPostScreen'>) {
   const [selectedImage, setSelectedImage] = useState<string>('');
-  const { photoList, fetchNextPage } = useCameraRoll(true, setSelectedImage);
+  const permission = usePermission('photoLibrary');
+  const { photoList, fetchNextPage } = useCameraRoll(
+    permission.status === 'granted',
+    setSelectedImage,
+  );
 
   const flatListRef = useRef<FlatList>(null);
 

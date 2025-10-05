@@ -6,8 +6,6 @@ import {
   PermissionStatus,
 } from './permissionTypes';
 
-const plataformVersion = Platform.Version.toString();
-
 async function check(name: PermissionName): Promise<PermissionStatus> {
   const permission = mapNameToPermission(name);
   if (permission) {
@@ -33,19 +31,25 @@ async function request(name: PermissionName): Promise<PermissionStatus> {
 }
 
 function mapNameToPermission(name: PermissionName): Permission | null {
-  switch (name) {
-    case 'photoLibrary': {
-      if (parseInt(plataformVersion, 10) >= 33) {
-        return 'android.permission.READ_MEDIA_IMAGES';
-      } else {
-        return 'android.permission.READ_EXTERNAL_STORAGE';
+  try {
+    const plataformVersion = Platform.Version.toString();
+
+    switch (name) {
+      case 'photoLibrary': {
+        if (parseInt(plataformVersion, 10) >= 33) {
+          return 'android.permission.READ_MEDIA_IMAGES';
+        } else {
+          return 'android.permission.READ_EXTERNAL_STORAGE';
+        }
       }
+      case 'camera': {
+        return 'android.permission.CAMERA';
+      }
+      default:
+        return null;
     }
-    case 'camera': {
-      return 'android.permission.CAMERA';
-    }
-    default:
-      return null;
+  } catch (e) {
+    return null;
   }
 }
 

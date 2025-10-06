@@ -4,7 +4,7 @@ import { permissionService } from './permissionService';
 import { PermissionName, PermissionStatus } from './permissionTypes';
 
 export function usePermission(permissionName: PermissionName) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<PermissionStatus>();
 
   async function checkPermission() {

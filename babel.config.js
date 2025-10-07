@@ -21,6 +21,7 @@ module.exports = {
           '@infra': './src/infra',
           '@service': './src/service',
           '@test': './src/test',
+          '@assets': './src/assets',
         },
       },
     ],

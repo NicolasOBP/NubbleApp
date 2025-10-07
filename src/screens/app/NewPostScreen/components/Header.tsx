@@ -1,5 +1,6 @@
 import { ImageBackground, StyleSheet } from 'react-native';
 
+import { images } from '@assets';
 import { useNavigation } from '@react-navigation/native';
 
 import { Box, BoxProps, Button, Icon, Text } from '@components';
@@ -22,6 +23,7 @@ export function Header({ imageUri, imageWidth }: Props) {
     <Box>
       <ImageBackground
         src={imageUri}
+        source={imageUri ? { uri: imageUri } : images.placeholderImage}
         style={[
           {
             width: imageWidth,

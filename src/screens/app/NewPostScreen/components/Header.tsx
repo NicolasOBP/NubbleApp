@@ -22,7 +22,6 @@ export function Header({ imageUri, imageWidth }: Props) {
   return (
     <Box>
       <ImageBackground
-        src={imageUri}
         source={imageUri ? { uri: imageUri } : images.placeholderImage}
         style={[
           {

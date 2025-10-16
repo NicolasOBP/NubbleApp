@@ -4,6 +4,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
+  CameraScreen,
   PostCommentScreen,
   ProfileScreen,
   PublishPostScreen,
@@ -20,6 +21,7 @@ export type AppStackParamList = {
   ProfileScreen: { userId: number };
   SearchScreen: undefined;
   PublishPostScreen: { imageUri: string };
+  CameraScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -40,6 +42,7 @@ export function AppStack({ initialRouteName = 'AppTabNavigator' }: Props) {
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="PublishPostScreen" component={PublishPostScreen} />
+      <Stack.Screen name="CameraScreen" component={CameraScreen} />
     </Stack.Navigator>
   );
 }

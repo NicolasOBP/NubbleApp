@@ -16,7 +16,7 @@ prepare_react_native_project!
 
 # ⬇️ uncomment the permissions you need
 setup_permissions([
-  # 'Camera',
+  'Camera',
   'PhotoLibrary',
 ])
 

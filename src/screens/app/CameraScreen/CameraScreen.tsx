@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
 import { useIsFocused } from '@react-navigation/native';
@@ -18,6 +18,7 @@ const CONTROL_HEIGHT = (Dimensions.get('window').height - CAMERA_VIEW) / 2;
 const CONTROL_DIFF = 30;
 
 export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
+  const [isReady, setIsReady] = useState(false);
   const { top } = useAppSafeArea();
   const [flashOn, setFlashOn] = useState(false);
   const device = useCameraDevice('back', {
@@ -28,11 +29,25 @@ export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
     ],
   });
 
+  const camera = useRef<Camera>(null);
+
   const format = useCameraFormat(device, Templates.Instagram);
 
   const isFocused = useIsFocused();
   const appState = useAppState();
   const isActive = isFocused && appState === 'active';
+
+  async function takePhoto() {
+    if (camera.current) {
+      const photoFile = await camera.current.takePhoto({
+        flash: flashOn ? 'on' : 'off',
+      });
+
+      navigation.navigate('PublishPostScreen', {
+        imageUri: `file://${photoFile.path}`,
+      });
+    }
+  }
 
   function toggleFlash() {
     setFlashOn(prev => !prev);
@@ -46,10 +61,14 @@ export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
       <Box flex={1}>
         {device && (
           <Camera
+            photoQualityBalance="quality"
+            ref={camera}
             style={StyleSheet.absoluteFill}
             device={device}
             isActive={isActive}
             format={format}
+            onInitialized={() => setIsReady(true)}
+            photo={true}
           />
         )}
 
@@ -71,7 +90,14 @@ export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
           </Box>
 
           <Box {...$controlAreaBottom}>
-            <Icon size={80} name="cameraClick" color="grayWhite" />
+            {isReady && (
+              <Icon
+                onPress={takePhoto}
+                size={80}
+                name="cameraClick"
+                color="grayWhite"
+              />
+            )}
           </Box>
         </Box>
       </Box>

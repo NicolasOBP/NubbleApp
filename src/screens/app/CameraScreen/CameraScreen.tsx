@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
 import { useIsFocused } from '@react-navigation/native';
-import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import {
+  Camera,
+  Templates,
+  useCameraDevice,
+  useCameraFormat,
+} from 'react-native-vision-camera';
 
 import { Box, BoxProps, Icon, PermissionManager } from '@components';
 import { useAppSafeArea, useAppState } from '@hooks';
@@ -15,7 +20,15 @@ const CONTROL_DIFF = 30;
 export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
   const { top } = useAppSafeArea();
   const [flashOn, setFlashOn] = useState(false);
-  const device = useCameraDevice('back');
+  const device = useCameraDevice('back', {
+    physicalDevices: [
+      'ultra-wide-angle-camera',
+      'wide-angle-camera',
+      'telephoto-camera',
+    ],
+  });
+
+  const format = useCameraFormat(device, Templates.Instagram);
 
   const isFocused = useIsFocused();
   const appState = useAppState();
@@ -36,6 +49,7 @@ export function CameraScreen({ navigation }: AppScreenProps<'CameraScreen'>) {
             style={StyleSheet.absoluteFill}
             device={device}
             isActive={isActive}
+            format={format}
           />
         )}
 

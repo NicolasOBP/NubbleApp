@@ -17,7 +17,11 @@ import {
 const resetParam: AuthStackParamList['SuccessScreen'] = {
   description: 'Clique no link enviado no seu e-mail para recuperar sua senha',
   title: 'Enviamos as instruções para seu e-mail',
-  icon: { name: 'messageRound', color: 'primary' },
+  icon: {
+    name: 'messageRound',
+    color: 'iconColor',
+    fillColor: 'iconFillColor',
+  },
 };
 
 export function ForgotPasswordScreen({}: AuthScreenProps<'ForgotPasswordScreen'>) {

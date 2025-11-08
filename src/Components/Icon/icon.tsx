@@ -44,6 +44,7 @@ export interface IconBase {
 export interface IconProps {
   name: IconNames;
   color?: ThemeColor;
+  fillColor?: ThemeColor;
   size?: number;
   onPress?: () => void;
 }
@@ -51,21 +52,28 @@ export interface IconProps {
 export function Icon({
   name,
   color = 'backgroundContrast',
+  fillColor = 'background',
   size,
   onPress,
 }: IconProps) {
   const SVGIcon = iconRegistry[name];
   const { colors } = useAppTheme();
 
+  const iconProps: React.ComponentProps<typeof SVGIcon> = {
+    color: colors[color],
+    fillColor: colors[fillColor],
+    size,
+  };
+
   if (onPress) {
     return (
       <Pressable testID={name} onPress={onPress} hitSlop={10}>
-        <SVGIcon color={colors[color]} size={size} />
+        <SVGIcon {...iconProps} />
       </Pressable>
     );
   }
 
-  return <SVGIcon color={colors[color]} size={size} />;
+  return <SVGIcon {...iconProps} />;
 }
 
 const iconRegistry = {

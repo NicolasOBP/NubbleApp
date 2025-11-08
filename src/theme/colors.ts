@@ -17,6 +17,8 @@ export const palette = {
   gray5: '#F5F5F5',
   grayWhite: '#FFFFFF',
   white70: 'rgba(255, 255, 255, 0.7)',
+
+  transparent: 'transparent',
 };
 
 const lightTheme = {
@@ -39,8 +41,12 @@ const lightTheme = {
   marked: palette.carrotSecondary,
   paragraph: palette.gray1,
 
+  paragraphSecundary: palette.gray1,
+
   iconColor: palette.greenPrimary,
   iconFillColor: palette.grayWhite,
+
+  separator: palette.gray4,
 };
 
 const darkTheme: typeof lightTheme = {
@@ -63,8 +69,12 @@ const darkTheme: typeof lightTheme = {
   marked: palette.carrotSecondary,
   paragraph: palette.grayWhite,
 
+  paragraphSecundary: palette.gray3,
+
   iconColor: palette.greenPrimaryLight,
   iconFillColor: palette.grayBlack,
+
+  separator: palette.gray1,
 };
 
 export const colors = { palette, darkTheme, lightTheme };

@@ -13,7 +13,7 @@ export const $shadowProps: ViewStyle = {
 };
 
 export const theme = createTheme({
-  colors: colors.darkTheme,
+  colors: colors.lightTheme,
   spacing: {
     s4: 4,
     s8: 8,

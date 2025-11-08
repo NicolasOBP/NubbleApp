@@ -9,7 +9,6 @@ import { AppScreenProps } from '@routes';
 import { MenuItem, MenuItemProps } from './components/MenuItem';
 
 export function SettingsScreen({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
 }: AppScreenProps<'SettingsScreen'>) {
   const { signOut, isLoading } = useAuthSignOut();
@@ -17,7 +16,12 @@ export function SettingsScreen({
   const items: MenuItemProps[] = [
     { label: 'Termo de Uso', onPress: () => {} },
     { label: 'Política de Privacidade', onPress: () => {} },
-    { label: 'Modo Escuro', onPress: () => {} },
+    {
+      label: 'Modo Escuro',
+      onPress: () => {
+        navigation.navigate('DarkModeScreen');
+      },
+    },
   ];
 
   function renderItem({ item }: ListRenderItemInfo<MenuItemProps>) {

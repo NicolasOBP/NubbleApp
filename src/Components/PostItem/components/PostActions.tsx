@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Post } from '@domain';
+import { useNavigation } from '@react-navigation/native';
 
 import { Box, Icon, IconProps, Text, TouchableOpacityBox } from '@components';
 
@@ -11,12 +12,14 @@ export function PostActions({
   favoriteCount,
   reactionCount,
 }: Props) {
+  const navigation = useNavigation();
   function likePost() {
     // TODO: implement like post
   }
 
   function navigateToComments() {
     // TODO: implement navigate to comments
+    navigation.navigate('PostCommentScreen', { postAuthorId: 10, postId: 10 });
   }
 
   function favoritePost() {

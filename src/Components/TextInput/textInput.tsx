@@ -53,7 +53,11 @@ export function TextInput({
           </Text>
         )}
 
-        <Box {...$textInputContainer} {...containerProps}>
+        <Box
+          {...$textInputContainer}
+          {...containerProps}
+          backgroundColor="grayWhite"
+        >
           {LeftComponent && (
             <Box justifyContent="center" mr="s16">
               {LeftComponent}

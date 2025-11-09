@@ -5,7 +5,7 @@ import { AppScreenProps } from '@routes';
 
 const items = [
   { label: 'Ativado', isSelected: true, onPress: () => {} },
-  { label: 'Desativado', isSelected: false, onPress: () => {} },
+  { label: 'Desativado', isSelected: true, onPress: () => {} },
   {
     label: 'Padrão do sistema',
     description:

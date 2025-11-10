@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '../Box/Box';
+import { Box, PressableBox } from '../Box/Box';
 import { Text } from '../Text/Text';
 
 import { RadioButton, RadioButtonProps } from './RadioButton';
@@ -16,7 +16,7 @@ export function RadioButtonItem({
   ...radioButtonProps
 }: RadioButtonItemProps) {
   return (
-    <Box paddingVertical="s16">
+    <PressableBox paddingVertical="s16" onPress={radioButtonProps.onPress}>
       <Box
         flexDirection="row"
         alignItems="center"
@@ -30,6 +30,6 @@ export function RadioButtonItem({
           {description}
         </Text>
       )}
-    </Box>
+    </PressableBox>
   );
 }

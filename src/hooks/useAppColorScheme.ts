@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Appearance } from 'react-native';
 
-import { useAppColor, useSettingsService } from '@service';
+import { settingsService, useAppColor, useSettingsService } from '@service';
 
 /**
  * To listen to device color scheme changes (dark mode & light mode)
@@ -23,6 +23,10 @@ export function useAppColorScheme() {
       subscription.remove();
     };
   }, [onSystemChange]);
+
+  useEffect(() => {
+    settingsService.handleStatusBar(appColor);
+  }, [appColor]);
 
   return appColor;
 }

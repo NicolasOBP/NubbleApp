@@ -3,12 +3,12 @@
 //   initializeStorate,
 //   MMKVStorage,
 // } from '@service';
-import { useAppColor } from '@service';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Toast } from '@components';
+import { useAppColorScheme } from '@hooks';
 
 import { Routes } from './src/routes/Routes';
 import { AuthCredentialsProvider } from './src/service/authCredentials';
@@ -20,7 +20,8 @@ const queryClient = new QueryClient();
 initializeStorate(MMKVStorage);
 
 function App() {
-  const appColor = useAppColor();
+  const appColor = useAppColorScheme();
+
   return (
     <AuthCredentialsProvider>
       <QueryClientProvider client={queryClient}>

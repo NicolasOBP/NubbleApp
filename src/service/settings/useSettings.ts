@@ -9,9 +9,14 @@ import { AppColorScheme, SettingsStore, ThemePreference } from './settingsType';
 const useSettingsStore = create<SettingsStore>()(
   persist(
     (set, get) => ({
+      showOnboarding: true,
       appColor: 'light',
 
       themePreference: 'system',
+
+      finishOnboarding: () => {
+        set({ showOnboarding: false });
+      },
 
       onSystemChange: color => {
         const updatedAppTheme = settingsService.onSystemChange(
@@ -46,17 +51,24 @@ export function useThemePreference(): ThemePreference {
   return themePreference;
 }
 
+export function useShowOnboarding(): boolean {
+  const showOnboarding = useSettingsStore(state => state.showOnboarding);
+  return showOnboarding;
+}
+
 export function useSettingsService(): Pick<
   SettingsStore,
-  'setThemePreference' | 'onSystemChange'
+  'setThemePreference' | 'onSystemChange' | 'finishOnboarding'
 > {
   const setThemePreference = useSettingsStore(
     state => state.setThemePreference,
   );
   const onSystemChange = useSettingsStore(state => state.onSystemChange);
+  const finishOnboarding = useSettingsStore(state => state.finishOnboarding);
 
   return {
     onSystemChange,
     setThemePreference,
+    finishOnboarding,
   };
 }

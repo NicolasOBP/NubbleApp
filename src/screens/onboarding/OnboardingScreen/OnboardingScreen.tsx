@@ -43,7 +43,7 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} bg="background">
       <FlatList
         ref={flatListRef}
         scrollEnabled={false}

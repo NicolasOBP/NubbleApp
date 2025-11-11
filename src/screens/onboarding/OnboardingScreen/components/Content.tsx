@@ -1,17 +1,18 @@
 import React from 'react';
 
-import { Box, Text } from '@components';
+import { Box, ProgressIndicator, Text } from '@components';
 
 import { OnboardingPageItem } from '../onboardingData';
 
 type ContentProps = Omit<OnboardingPageItem, 'image'>;
-export function Content({ subtitle, title }: ContentProps) {
+export function Content({ subtitle, title, index, total }: ContentProps) {
   return (
     <Box>
+      <ProgressIndicator total={total} currentIndex={index} mb="s24" />
       <Text preset="headingLarge">
-        {title.map((item, index) => (
+        {title.map((item, _index) => (
           <Text
-            key={index}
+            key={_index}
             preset="headingLarge"
             color={item.highlight ? 'carrotSecondary' : 'backgroundContrast'}
           >
@@ -19,7 +20,9 @@ export function Content({ subtitle, title }: ContentProps) {
           </Text>
         ))}
       </Text>
-      <Text preset="paragraphLarge">{subtitle}</Text>
+      <Text mt="s16" preset="paragraphLarge">
+        {subtitle}
+      </Text>
     </Box>
   );
 }

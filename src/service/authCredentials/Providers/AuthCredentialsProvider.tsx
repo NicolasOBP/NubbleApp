@@ -43,6 +43,7 @@ export function AuthCredentialsProvider({
         setAuthCredentials(ac);
       }
     } catch (error) {
+      error;
       // TODO: handle error
     } finally {
       setIsLoading(false);

@@ -13,6 +13,7 @@ async function signIn(
 
     return authAdapter.toAuthCredentials(authCredentialsApi);
   } catch (error) {
+    error;
     throw new Error('Email ou senha inválidos');
   }
 }

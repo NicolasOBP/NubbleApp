@@ -12,7 +12,11 @@ function onChangeThemePreference(
   if (themePreference === 'system') {
     const colorScheme = Appearance.getColorScheme();
 
-    return colorScheme ? colorScheme : 'light';
+    if (colorScheme === 'dark') {
+      return colorScheme;
+    }
+
+    return 'light';
   }
 
   return themePreference;
@@ -23,6 +27,10 @@ function onSystemChange(
   themePreference: ThemePreference,
 ): AppColorScheme | null {
   if (themePreference === 'system') {
+    if (color === 'unspecified') {
+      return null;
+    }
+
     return color ? color : 'light';
   }
 
@@ -49,6 +57,7 @@ async function hideSplashScreen() {
       BootSplash.hide({ fade: true });
     }
   } catch (error) {
+    error;
     BootSplash.hide({ fade: true });
   }
 }

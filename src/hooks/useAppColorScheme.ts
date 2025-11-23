@@ -11,7 +11,7 @@ export function useAppColorScheme() {
   const { onSystemChange } = useSettingsService();
 
   useEffect(() => {
-    onSystemChange(Appearance.getColorScheme());
+    onSystemChange(Appearance.getColorScheme()!);
   }, [onSystemChange]);
 
   useEffect(() => {

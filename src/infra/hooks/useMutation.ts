@@ -25,6 +25,7 @@ export function useMutation<TVariables, TData>(
         options.onSuccess(data);
       }
     } catch (err) {
+      err;
       if (options?.onError) {
         options.onError(options?.errorMessage || '');
       }

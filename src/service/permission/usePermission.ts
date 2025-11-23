@@ -19,6 +19,7 @@ export function usePermission(permissionName: PermissionName) {
         setStatus(initialStatus);
       }
     } catch (error) {
+      error;
       setStatus('unavailable');
     } finally {
       setIsLoading(false);

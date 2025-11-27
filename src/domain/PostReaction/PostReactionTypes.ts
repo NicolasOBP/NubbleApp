@@ -25,6 +25,7 @@ export interface PostReactionBaseAPI {
   post_id: number;
   created_at: string;
   updated_at: string;
+  is_checked: boolean;
 }
 
 export interface PostReactionAPI extends PostReactionBaseAPI {

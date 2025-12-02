@@ -1,19 +1,29 @@
 import React from 'react';
-import { Image, ListRenderItemInfo } from 'react-native';
+import { Dimensions, Image, ListRenderItemInfo } from 'react-native';
 
 import { PostReaction, postReactionService } from '@domain';
 import { QueryKeys } from '@infra';
 
-import { InfinityScrollList, Screen, Text } from '@components';
+import { Box, InfinityScrollList, Screen, Text } from '@components';
 import { AppTabScreenProps } from '@routes';
+
+const NUMBER_COL = 2;
+const SCREEN_WIDTH = Dimensions.get('screen').width;
+const SCREEN_PADDING = 24;
+const ITEM_PADDING = 16;
+const ITEM_WIDTH =
+  (SCREEN_WIDTH - SCREEN_PADDING * 2 - ITEM_PADDING) / NUMBER_COL;
 
 export function FavoriteScreen({}: AppTabScreenProps<'FavoriteScreen'>) {
   function renderItem({ item }: ListRenderItemInfo<PostReaction>) {
     return (
-      <Image
-        source={{ uri: item.post.imageURL }}
-        style={{ width: 300, height: 300 }}
-      />
+      <Box>
+        <Image
+          source={{ uri: item.post.imageURL }}
+          style={{ width: ITEM_WIDTH, height: ITEM_WIDTH }}
+        />
+        <Text semibold>{item.author.username}</Text>
+      </Box>
     );
   }
 
@@ -27,6 +37,11 @@ export function FavoriteScreen({}: AppTabScreenProps<'FavoriteScreen'>) {
         emptyListProps={{
           emptyMessage: 'Não há favoritos',
           errorMessage: 'Erro ao carregar favoritos',
+        }}
+        flatListProps={{
+          numColumns: NUMBER_COL,
+          columnWrapperStyle: { columnGap: ITEM_PADDING },
+          contentContainerStyle: { rowGap: SCREEN_PADDING },
         }}
       />
     </Screen>

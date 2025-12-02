@@ -40,7 +40,6 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
       showsVerticalScrollIndicator={false}
       onEndReached={fetchNextPage}
       onEndReachedThreshold={0.2}
-      contentContainerStyle={{ flex: list.length === 0 ? 1 : undefined }}
       refreshing={isLoading}
       refreshControl={
         <RefreshControl refreshing={isLoading} onRefresh={refresh} />
@@ -54,6 +53,10 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
         />
       }
       {...flatListProps}
+      contentContainerStyle={[
+        { flex: list.length === 0 ? 1 : undefined },
+        flatListProps?.contentContainerStyle,
+      ]}
     />
   );
 }

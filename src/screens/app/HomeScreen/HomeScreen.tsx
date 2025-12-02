@@ -2,30 +2,20 @@ import React from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
-  RefreshControl,
   StyleProp,
   ViewStyle,
 } from 'react-native';
 
-import { Post, usePostList } from '@domain';
+import { Post, postService } from '@domain';
+import { QueryKeys } from '@infra';
 import { useScrollToTop } from '@react-navigation/native';
 
-import { PostItem, Screen } from '@components';
+import { InfinityScrollList, PostItem, Screen } from '@components';
 import { AppTabScreenProps } from '@routes';
 
-import { HomeEmpty } from './components/HomeEmpty';
 import { HomeHeader } from './components/HomeHeader';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
-  const {
-    isError,
-    isLoading,
-    list: postList,
-    refresh,
-    fetchNextPage,
-  } = usePostList();
-
+export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const flatListRef = React.useRef<FlatList<Post>>(null);
   useScrollToTop(flatListRef);
 
@@ -35,23 +25,11 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
 
   return (
     <Screen style={$screen}>
-      <FlatList
-        ref={flatListRef}
-        data={postList}
-        keyExtractor={item => item.id.toString()}
+      <InfinityScrollList
+        querKey={QueryKeys.PostList}
+        getList={postService.getList}
         renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        onEndReached={fetchNextPage}
-        onEndReachedThreshold={0.2}
-        contentContainerStyle={{ flex: postList.length === 0 ? 1 : undefined }}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refresh} />
-        }
-        refreshing={isLoading}
-        ListHeaderComponent={<HomeHeader />}
-        ListEmptyComponent={
-          <HomeEmpty refetch={refresh} error={isError} loading={isLoading} />
-        }
+        flatListProps={{ ListHeaderComponent: <HomeHeader /> }}
       />
     </Screen>
   );

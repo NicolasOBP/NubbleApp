@@ -2,7 +2,7 @@ import { apiAdapter } from '@api';
 import { Page } from '@types';
 
 import { postReactionAdapter } from './PostReactionAdapter';
-import { postReactionAPI } from './PostReactionAPI';
+import { postReactionAPI } from './PostReactionApi';
 import {
   PostReaction,
   PostReactionBase,

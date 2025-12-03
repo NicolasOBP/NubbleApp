@@ -39,6 +39,7 @@ export function TextMessage({
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
+        mb="s10"
       >
         <RNTextInput
           ref={inputRef}

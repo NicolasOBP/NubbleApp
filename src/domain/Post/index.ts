@@ -3,3 +3,4 @@ export * from './postService';
 
 export * from './useCases/usePostList';
 export * from './useCases/usePostCreate';
+export * from './useCases/usePostGetById';

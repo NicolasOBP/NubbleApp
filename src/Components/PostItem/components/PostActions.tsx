@@ -5,12 +5,15 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Box, Icon, IconProps, Text, TouchableOpacityBox } from '@components';
 
-type Props = Pick<Post, 'commentCount' | 'favoriteCount' | 'reactionCount'>;
+type Props = Pick<Post, 'commentCount' | 'favoriteCount' | 'reactionCount'> & {
+  hideCommentAction?: boolean;
+};
 
 export function PostActions({
   commentCount,
   favoriteCount,
   reactionCount,
+  hideCommentAction,
 }: Props) {
   const navigation = useNavigation();
   function likePost() {
@@ -35,6 +38,7 @@ export function PostActions({
         text={reactionCount}
       />
       <Item
+        disabled={hideCommentAction}
         marked={false}
         icon={{ default: 'comment', marked: 'comment' }}
         onPress={navigateToComments}
@@ -55,11 +59,13 @@ interface ItemProps {
   marked: boolean;
   icon: { default: IconProps['name']; marked: IconProps['name'] };
   text: number;
+  disabled?: boolean;
 }
 
-function Item({ onPress, icon, marked, text }: ItemProps) {
+function Item({ onPress, icon, marked, text, disabled }: ItemProps) {
   return (
     <TouchableOpacityBox
+      disabled={disabled}
       onPress={onPress}
       flexDirection="row"
       alignItems="center"

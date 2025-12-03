@@ -18,7 +18,14 @@ async function createPost(text: string, imageCover: ImageForUpload) {
   return postAdapter.toPost(postAPI);
 }
 
+async function getById(postId: number): Promise<Post> {
+  const postAPI = await postApi.getById(postId.toString());
+
+  return postAdapter.toPost(postAPI);
+}
+
 export const postService = {
   getList,
   createPost,
+  getById,
 };

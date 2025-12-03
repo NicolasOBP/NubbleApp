@@ -52,7 +52,12 @@ export function PostCommentItem({
       disabled={!isAllowedToRemove}
       onLongPress={confirmRemove}
     >
-      <Box flexDirection="row" alignItems="center" mb="s16">
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        mb="s16"
+        paddingHorizontal="s24"
+      >
         <ProfileAvatar imageURL={postComment.author.profileURL} />
         <Box ml="s12" flex={1}>
           <Text preset="paragraphSmall" bold>

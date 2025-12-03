@@ -19,7 +19,11 @@ export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
   SettingsScreen: undefined;
   DarkModeScreen: undefined;
-  PostCommentScreen: { postId: number; postAuthorId: number };
+  PostCommentScreen: {
+    postId: number;
+    postAuthorId: number;
+    showPost?: boolean;
+  };
   ProfileScreen: { userId: number };
   SearchScreen: undefined;
   PublishPostScreen: { imageUri: string };

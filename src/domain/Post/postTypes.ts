@@ -1,3 +1,5 @@
+import { PostReaction, PostReactionAPI } from '../PostReaction';
+
 export interface Post {
   id: number;
   text: string;
@@ -11,6 +13,7 @@ export interface Post {
   reactionCount: number;
   commentCount: number;
   favoriteCount: number;
+  reactions: Pick<PostReaction, 'emojiType' | 'postId'>[];
 }
 
 export interface PostAPI {
@@ -19,11 +22,6 @@ export interface PostAPI {
   image_url: string; //'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/post1.jpg';
   is_activated: true;
   is_fixed: boolean; // false;
-  meta: {
-    like_count: string; // '5';
-    favorite_count: string; // '1';
-    comments_count: string; // '4';
-  };
   status: string; //'published';
   text: string; //'Bom dia!';
   updated_at: string; //'2025-07-03T18:36:01.863-03:00';
@@ -38,4 +36,10 @@ export interface PostAPI {
     full_name: string; //'Maria Julia';
   };
   user_id: number; //1;
+  meta: {
+    like_count: string; // '5';
+    favorite_count: string; // '1';
+    comments_count: string; // '4';
+  };
+  reactions: Pick<PostReactionAPI, 'emoji_type' | 'post_id'>[];
 }

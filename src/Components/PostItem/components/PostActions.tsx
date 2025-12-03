@@ -5,14 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Box, Icon, IconProps, Text, TouchableOpacityBox } from '@components';
 
-type Props = Pick<Post, 'commentCount' | 'favoriteCount' | 'reactionCount'> & {
+type Props = {
+  post: Post;
   hideCommentAction?: boolean;
 };
 
 export function PostActions({
-  commentCount,
-  favoriteCount,
-  reactionCount,
+  post,
+
   hideCommentAction,
 }: Props) {
   const navigation = useNavigation();
@@ -35,20 +35,20 @@ export function PostActions({
         marked
         icon={{ default: 'heart', marked: 'heartFill' }}
         onPress={likePost}
-        text={reactionCount}
+        text={post.reactionCount}
       />
       <Item
         disabled={hideCommentAction}
         marked={false}
         icon={{ default: 'comment', marked: 'comment' }}
         onPress={navigateToComments}
-        text={commentCount}
+        text={post.commentCount}
       />
       <Item
         marked={false}
         icon={{ default: 'bookmark', marked: 'bookmarkFill' }}
         onPress={favoritePost}
-        text={favoriteCount}
+        text={post.favoriteCount}
       />
     </Box>
   );

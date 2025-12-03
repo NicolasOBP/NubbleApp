@@ -33,7 +33,6 @@ export function PublishPostScreen({
         source={{
           uri: imageUri,
         }}
-        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           width: IMAGE_WIDTH,
           height: IMAGE_WIDTH,

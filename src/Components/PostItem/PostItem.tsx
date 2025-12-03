@@ -26,12 +26,7 @@ export function PostItem({ post, hideCommentAction }: Props) {
 
       <PostImage imageURL={post.imageURL} />
 
-      <PostActions
-        hideCommentAction={hideCommentAction}
-        commentCount={post.commentCount}
-        favoriteCount={post.favoriteCount}
-        reactionCount={post.reactionCount}
-      />
+      <PostActions hideCommentAction={hideCommentAction} post={post} />
 
       <PostBottom
         hideCommentAction={hideCommentAction}

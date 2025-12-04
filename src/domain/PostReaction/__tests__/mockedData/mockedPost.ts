@@ -16,6 +16,16 @@ const postWithoutLike: Post = {
   reactions: [],
 };
 
+const postWithLike: Post = {
+  ...postWithoutLike,
+  reactions: [
+    {
+      emojiType: 'like',
+      postId: postWithoutLike.id,
+    },
+  ],
+};
+
 const postWithoutLikeResponse: PostReactionBase = {
   id: 4,
   emojiType: 'like',
@@ -26,7 +36,16 @@ const postWithoutLikeResponse: PostReactionBase = {
   isChecked: true,
 };
 
+const postWithLikeResponse: PostReactionBase = {
+  ...postWithoutLikeResponse,
+  isChecked: false,
+};
+
 export const mokcedPostWithoutLike = {
   post: postWithoutLike,
   response: postWithoutLikeResponse,
+};
+export const mokcedPostWithLike = {
+  post: postWithLike,
+  response: postWithLikeResponse,
 };

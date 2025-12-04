@@ -16,16 +16,8 @@ export function PostActions({ post, hideCommentAction }: Props) {
     postReactionType: 'favorite',
   });
 
-  function likePost() {
-    // TODO: implement like post
-  }
-
   function navigateToComments() {
     // TODO: implement navigate to comments
-  }
-
-  function favoritePost() {
-    // TODO: implement favorite post
   }
 
   return (
@@ -33,8 +25,8 @@ export function PostActions({ post, hideCommentAction }: Props) {
       <Item
         marked={likeReaction.hasReacted}
         icon={{ default: 'heart', marked: 'heartFill' }}
-        onPress={likePost}
-        text={post.reactionCount}
+        onPress={likeReaction.reactToPost}
+        text={likeReaction.reactionCount}
       />
       <Item
         disabled={hideCommentAction}
@@ -46,8 +38,8 @@ export function PostActions({ post, hideCommentAction }: Props) {
       <Item
         marked={favoriteReaction.hasReacted}
         icon={{ default: 'bookmark', marked: 'bookmarkFill' }}
-        onPress={favoritePost}
-        text={post.favoriteCount}
+        onPress={favoriteReaction.reactToPost}
+        text={favoriteReaction.reactionCount}
       />
     </Box>
   );

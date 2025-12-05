@@ -24,6 +24,7 @@ module.exports = function (api) {
             '@service': './src/service',
             '@test': './src/test',
             '@assets': './src/assets',
+            '@templates': './src/templates',
           },
         },
       ],

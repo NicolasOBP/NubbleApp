@@ -19,6 +19,7 @@
       "@service": ["src/service"],
       "@test": ["src/test"],
       "@assets": ["src/assets"],
+      "@templates": ["src/templates"],
       "test-utils": ["src/test/test-utils"]
     }
   }

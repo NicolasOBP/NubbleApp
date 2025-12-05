@@ -1,19 +1,24 @@
 import React from 'react';
 
 import { User } from '@domain';
+import { useNavigation } from '@react-navigation/native';
 
-import { Box, ProfileAvatar, Text } from '@components';
+import { Box, Icon, ProfileAvatar, Text } from '@components';
 
 import { ProfileMetaData } from './ProfileMetaData';
 
 type Props = {
   user: User;
+  isMyProfile?: boolean;
 };
 
-export function ProfileHeader({ user }: Props) {
+export function ProfileHeader({ user, isMyProfile }: Props) {
+  const navigation = useNavigation();
+
   return (
     <Box alignItems="center">
       <ProfileAvatar imageURL={user?.profileUrl} size={100} borderRadius={40} />
+
       <Text preset="headingMedium" mt="s16">
         {user.fullName}
       </Text>
@@ -26,6 +31,16 @@ export function ProfileHeader({ user }: Props) {
         followingCount="20"
         publicationCount="10"
       />
+
+      {isMyProfile && (
+        <Box position="absolute" alignSelf="flex-end">
+          <Icon
+            name="settings"
+            size={30}
+            onPress={() => navigation.navigate('SettingsScreen')}
+          />
+        </Box>
+      )}
     </Box>
   );
 }

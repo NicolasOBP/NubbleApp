@@ -26,7 +26,7 @@ export function ProfileTemplate({ userId, isMyProfile }: Props) {
   }
 
   function renderListHeader() {
-    return user && <ProfileHeader user={user} />;
+    return user && <ProfileHeader user={user} isMyProfile={isMyProfile} />;
   }
 
   return (

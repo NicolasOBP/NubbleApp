@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, FlatListProps, RefreshControl } from 'react-native';
 
-import { QueryKeys, usePaginatedList } from '@infra';
+import { usePaginatedList } from '@infra';
 import { useScrollToTop } from '@react-navigation/native';
 
 import { EmptyList, EmptyListProps } from './components/EmptyList';
@@ -9,7 +9,7 @@ import { EmptyList, EmptyListProps } from './components/EmptyList';
 type ItemTConstraints = { id: number | string };
 
 type Props<ItemT extends ItemTConstraints> = {
-  querKey: QueryKeys;
+  querKey: Parameters<typeof usePaginatedList<ItemT>>[0];
   getList: Parameters<typeof usePaginatedList<ItemT>>[1];
   renderItem: FlatListProps<ItemT>['renderItem'];
   emptyListProps?: Pick<EmptyListProps, 'emptyMessage' | 'errorMessage'>;
@@ -24,7 +24,7 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
   renderItem,
 }: Props<ItemT>) {
   const { isError, isLoading, list, refresh, fetchNextPage } = usePaginatedList(
-    [querKey],
+    querKey,
     getList,
   );
 

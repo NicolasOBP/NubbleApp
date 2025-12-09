@@ -42,7 +42,7 @@ export function FavoriteScreen({
   return (
     <Screen flex={1} title="Favoritos">
       <InfinityScrollList
-        querKey={QueryKeys.FavoriteList}
+        querKey={[QueryKeys.FavoriteList]}
         getList={page => postReactionService.getMyReactions(page, 'favorite')}
         renderItem={renderItem}
         emptyListProps={{

@@ -1,16 +1,17 @@
 import React from 'react';
 import {
   Dimensions,
-  FlatList,
   Image,
   ListRenderItemInfo,
   StyleProp,
   ViewStyle,
 } from 'react-native';
 
-import { Post, usePostList, useUserGetById } from '@domain';
+import { Post, postService, useUserGetById } from '@domain';
+import { QueryKeys } from '@infra';
+import { Page } from '@types';
 
-import { Screen } from '@components';
+import { InfinityScrollList, Screen } from '@components';
 
 import { ProfileHeader } from './components/ProfileHeader';
 
@@ -24,7 +25,6 @@ type Props = {
 };
 
 export function ProfileTemplate({ userId, isMyProfile }: Props) {
-  const { list } = usePostList();
   const { user } = useUserGetById(userId);
 
   function renderItem({ item }: ListRenderItemInfo<Post>) {
@@ -40,13 +40,21 @@ export function ProfileTemplate({ userId, isMyProfile }: Props) {
     return user && <ProfileHeader user={user} isMyProfile={isMyProfile} />;
   }
 
+  async function getList(page: number): Promise<Page<Post>> {
+    const response = await postService.getList(page, userId);
+    return response;
+  }
+
   return (
     <Screen canGoBack={!isMyProfile} flex={1} style={$screen}>
-      <FlatList
-        data={list}
+      <InfinityScrollList
+        querKey={[QueryKeys.PostList, userId]}
+        getList={getList}
         renderItem={renderItem}
-        ListHeaderComponent={renderListHeader}
-        numColumns={NUM_COLUMNS}
+        flatListProps={{
+          ListHeaderComponent: renderListHeader,
+          numColumns: NUM_COLUMNS,
+        }}
       />
     </Screen>
   );

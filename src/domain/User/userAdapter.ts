@@ -13,6 +13,10 @@ export function toUser(userApi: UserAPI): User {
     lastName: userApi.last_name,
     profileUrl: userApi.profile_url,
     username: userApi.username,
+    meta: {
+      followersCount: userApi.meta.followers_count,
+      followingCount: userApi.meta.following_count,
+    },
   };
 }
 

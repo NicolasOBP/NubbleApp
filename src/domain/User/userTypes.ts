@@ -7,6 +7,10 @@ export interface User {
   profileUrl: string;
   isOnline: boolean;
   fullName: string;
+  meta: {
+    followersCount: string;
+    followingCount: string;
+  };
 }
 
 export interface UserAPI {
@@ -18,4 +22,8 @@ export interface UserAPI {
   profile_url: string;
   is_online: boolean;
   full_name: string;
+  meta: {
+    followers_count: string;
+    following_count: string;
+  };
 }

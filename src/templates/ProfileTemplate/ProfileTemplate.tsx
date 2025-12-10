@@ -56,7 +56,7 @@ export function ProfileTemplate({ userId, isMyProfile }: Props) {
   }
 
   return (
-    <Screen canGoBack={!isMyProfile} flex={1} style={$screen}>
+    <Screen flex={1} style={$screen}>
       <InfinityScrollList
         querKey={[QueryKeys.PostList, userId]}
         getList={getList}

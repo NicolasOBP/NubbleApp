@@ -1,4 +1,4 @@
-import { User, UserAPI } from './userTypes';
+import { User, UserAPI, UserDetails } from './userTypes';
 
 /**
  * @description Adapta o UserAPI para o modelo de User
@@ -20,6 +20,14 @@ export function toUser(userApi: UserAPI): User {
   };
 }
 
+function toUserDetails(userApi: UserAPI, isFollowing: boolean): UserDetails {
+  return {
+    ...toUser(userApi),
+    isFollowing: isFollowing,
+  };
+}
+
 export const userAdapter = {
   toUser,
+  toUserDetails,
 };

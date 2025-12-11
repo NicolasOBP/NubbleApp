@@ -18,7 +18,17 @@ async function getList(search: string): Promise<PageAPI<UserAPI>> {
   return response.data;
 }
 
+//TODO: move to follow domaain when it is ready
+async function isFollowing(userId: string): Promise<{ isFollowing: boolean }> {
+  const response = await API.get<{ isFollowing: boolean }>(
+    `user/follow/is-following/${userId}`,
+  );
+
+  return response.data;
+}
+
 export const userApi = {
   getById,
   getList,
+  isFollowing,
 };

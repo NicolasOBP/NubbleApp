@@ -45,7 +45,11 @@ export function ProfileUser({
       {...pressableBoxProps}
     >
       <Box flexDirection="row" alignItems="center">
-        <ProfileAvatar {...avatarProps} imageURL={user.profileUrl} />
+        <ProfileAvatar
+          {...avatarProps}
+          imageURL={user.profileUrl}
+          authorId={user.id}
+        />
         <Text ml="s12" preset="paragraphMedium" semibold>
           {user.username}
         </Text>

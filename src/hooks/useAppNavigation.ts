@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { useAuthCredentials } from '@service';
 
+import { AppStackParamList } from '@routes';
+
 export function useAppNavigation() {
   const { authCredentials } = useAuthCredentials();
 
@@ -14,8 +16,19 @@ export function useAppNavigation() {
     }
   }
 
+  type CommentParams = Omit<AppStackParamList['PostCommentScreen'], 'showPost'>;
+  function toPostComment(params: CommentParams) {
+    navigation.navigate('PostCommentScreen', params);
+  }
+
+  function toPostDetails(params: CommentParams) {
+    navigation.navigate('PostCommentScreen', { ...params, showPost: true });
+  }
+
   const navigate = {
     toProfile,
+    toPostComment,
+    toPostDetails,
   };
 
   return navigate;

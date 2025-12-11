@@ -5,6 +5,7 @@ import { PostReaction, postReactionService } from '@domain';
 import { QueryKeys } from '@infra';
 
 import { InfinityScrollList, PressableBox, Screen, Text } from '@components';
+import { useAppNavigation } from '@hooks';
 import { AppTabScreenProps } from '@routes';
 
 const NUMBER_COL = 2;
@@ -14,17 +15,15 @@ const ITEM_PADDING = 16;
 const ITEM_WIDTH =
   (SCREEN_WIDTH - SCREEN_PADDING * 2 - ITEM_PADDING) / NUMBER_COL;
 
-export function FavoriteScreen({
-  navigation,
-}: AppTabScreenProps<'FavoriteScreen'>) {
+export function FavoriteScreen({}: AppTabScreenProps<'FavoriteScreen'>) {
+  const navigete = useAppNavigation();
   function renderItem({ item }: ListRenderItemInfo<PostReaction>) {
     return (
       <PressableBox
         onPress={() =>
-          navigation.navigate('PostCommentScreen', {
+          navigete.toPostDetails({
             postId: item.postId,
             postAuthorId: item.author.id,
-            showPost: true,
           })
         }
       >

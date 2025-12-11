@@ -39,7 +39,11 @@ interface Props {
 export function AppStack({ initialRouteName = 'AppTabNavigator' }: Props) {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, fullScreenGestureEnabled: true }}
+      screenOptions={{
+        headerShown: false,
+        fullScreenGestureEnabled: true,
+        animation: 'slide_from_right',
+      }}
       initialRouteName={initialRouteName}
     >
       <Stack.Screen name="AppTabNavigator" component={AppTabNavigator} />

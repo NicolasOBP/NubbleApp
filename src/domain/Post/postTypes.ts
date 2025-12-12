@@ -1,4 +1,5 @@
 import { PostReaction, PostReactionAPI } from '../PostReaction';
+import { UserAPI } from '../User';
 
 export interface Post {
   id: number;
@@ -25,16 +26,7 @@ export interface PostAPI {
   status: string; //'published';
   text: string; //'Bom dia!';
   updated_at: string; //'2025-07-03T18:36:01.863-03:00';
-  user: {
-    id: number; // 1;
-    first_name: string; //'Maria';
-    last_name: string; //'Julia';
-    username: string; //'mariajulia';
-    email: string; // 'mariajulia@coffstack.com';
-    profile_url: string; //'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/1-maria.png';
-    is_online: boolean; // false;
-    full_name: string; //'Maria Julia';
-  };
+  user: UserAPI;
   user_id: number; //1;
   meta: {
     like_count: string; // '5';

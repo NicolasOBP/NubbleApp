@@ -25,6 +25,7 @@ module.exports = function (api) {
             '@test': './src/test',
             '@assets': './src/assets',
             '@templates': './src/templates',
+            '@form': './src/form',
           },
         },
       ],

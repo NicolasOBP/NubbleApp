@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { authService, User } from '@domain';
 import { useAsyncValidation } from '@form';
@@ -11,18 +11,20 @@ import { editProfileSchema, EditProfileSchema } from '../editProfileSchema';
 
 type Props = {
   user: User;
+  onChangeIsvalid: (isValid: boolean) => void;
 };
 
-export function EditProfileForm({ user }: Props) {
-  const { control, watch, getFieldState } = useForm<EditProfileSchema>({
-    resolver: zodResolver(editProfileSchema),
-    defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-    },
-    mode: 'onChange',
-  });
+export function EditProfileForm({ user, onChangeIsvalid }: Props) {
+  const { control, watch, getFieldState, formState } =
+    useForm<EditProfileSchema>({
+      resolver: zodResolver(editProfileSchema),
+      defaultValues: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+      },
+      mode: 'onChange',
+    });
 
   const usernameValidation = useAsyncValidation({
     watch,
@@ -31,6 +33,10 @@ export function EditProfileForm({ user }: Props) {
     isAvailableFunc: authService.isUserNameAvailable,
     errorMessage: 'username indisponível',
   });
+
+  useEffect(() => {
+    onChangeIsvalid(formState.isValid && !usernameValidation.notReady);
+  }, [formState.isValid, onChangeIsvalid, usernameValidation.notReady]);
 
   return (
     <Box>

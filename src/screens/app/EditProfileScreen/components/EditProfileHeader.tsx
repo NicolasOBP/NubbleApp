@@ -3,13 +3,13 @@ import { Pressable } from 'react-native';
 
 import { User } from '@domain';
 
-import { Box, ProfileAvatar, Text } from '@components';
+import { Box, BoxProps, ProfileAvatar, Text } from '@components';
 
 type Props = {
   user?: User;
-};
+} & BoxProps;
 
-export function EditProfileHeader({ user }: Props) {
+export function EditProfileHeader({ user, ...boxProps }: Props) {
   function navigateToPhoto() {
     //TODO: navigate to EditPhoto
   }
@@ -17,7 +17,7 @@ export function EditProfileHeader({ user }: Props) {
   if (!user) return null;
 
   return (
-    <Box flexDirection="row" alignItems="center">
+    <Box flexDirection="row" alignItems="center" {...boxProps}>
       <ProfileAvatar imageURL={user.profileUrl} size={64} borderRadius={24} />
 
       <Pressable hitSlop={20} onPress={navigateToPhoto}>

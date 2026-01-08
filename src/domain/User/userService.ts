@@ -3,7 +3,7 @@ import { Page } from '@types';
 
 import { userAdapter } from './userAdapter';
 import { userApi } from './userApi';
-import { User, UserDetails } from './userTypes';
+import { UpdateUserParams, User, UserDetails } from './userTypes';
 
 async function getById(id: number): Promise<UserDetails> {
   const userAPI = await userApi.getById(id.toString());
@@ -18,7 +18,42 @@ async function searchUser(search: string): Promise<Page<User>> {
   return apiAdapter.toPageModel(userPageAPI, userAdapter.toUser);
 }
 
+async function updateUser(
+  current: User,
+  updateParams: UpdateUserParams,
+): Promise<User> {
+  const updatedUser = getUpdatedUser(current, updateParams);
+  const userAPI = await userApi.updateUser(updatedUser);
+
+  return userAdapter.toUser(userAPI);
+}
+
+function getUpdatedUser(
+  current: User,
+  updateParams: UpdateUserParams,
+): UpdateUserParams {
+  const updatedUser: UpdateUserParams = {};
+
+  if (
+    !!updateParams.firstName &&
+    current.firstName !== updateParams.firstName
+  ) {
+    updatedUser.firstName = updateParams.firstName;
+  }
+
+  if (!!updateParams.lastName && current.lastName !== updateParams.lastName) {
+    updatedUser.lastName = updateParams.lastName;
+  }
+
+  if (!!updateParams.username && current.username !== updateParams.username) {
+    updatedUser.username = updateParams.username;
+  }
+
+  return updatedUser;
+}
+
 export const userService = {
   getById,
   searchUser,
+  updateUser,
 };

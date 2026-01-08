@@ -31,3 +31,7 @@ export interface UserAPI {
     following_count: string;
   };
 }
+
+export type UpdateUserParams = Partial<
+  Pick<User, 'firstName' | 'lastName' | 'username'>
+>;

@@ -18,6 +18,7 @@ export function EditProfileScreen({
   const { userId } = route.params;
   const { user } = useUserGetById(userId);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formRef = useRef<EditProfileFormRef>(null);
 
@@ -34,6 +35,7 @@ export function EditProfileScreen({
             ref={formRef}
             user={user}
             onChangeIsvalid={setFormIsValid}
+            onChangeIsLoading={setIsLoading}
           />
 
           <InputButton
@@ -58,6 +60,7 @@ export function EditProfileScreen({
         mt="s40"
         title="Salvar alterações"
         onPress={submitForm}
+        loading={isLoading}
       />
     </Screen>
   );

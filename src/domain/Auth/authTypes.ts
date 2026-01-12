@@ -47,3 +47,8 @@ export interface SignUpData {
 export interface ForgotPasswordParam {
   email: string;
 }
+
+export type EditPasswordParams = {
+  currentPassword: string;
+  newPassword: string;
+};

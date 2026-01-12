@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 type ErrorWithMessage = {
   message: string;
 };
@@ -23,8 +25,40 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   }
 }
 
+/**
+ * Get the error message from an error (type unknown)
+ *
+ * Reference: https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
+ */
 function getErrorMessage(error: unknown) {
+  const axiosErrorMessage = tryGetAxiosErrorMessage(error);
+  if (axiosErrorMessage) return axiosErrorMessage;
+
   return toErrorWithMessage(error).message;
 }
 
+function tryGetAxiosErrorMessage(error: unknown): string | null {
+  try {
+    if (axios.isAxiosError(error)) {
+      const response = error.response;
+
+      if (response && response.data && response.data.message) {
+        return response.data.message;
+      }
+
+      if (response && response.data && Array.isArray(response.data.errors)) {
+        return response.data.errors
+          .map(
+            (errObj: { message?: string }) => errObj.message || 'unknown error',
+          )
+          .join(', ');
+      }
+    }
+
+    return null;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
+    return null;
+  }
+}
 export const errorUtils = { getErrorMessage };

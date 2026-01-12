@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import { registerInterceptor } from '@api';
-import { AuthCredentials, authService } from '@domain';
+import { AuthCredentials, authService, User } from '@domain';
 
 import { authCredentialsStorage } from '../authCredentialsStorage';
 import { AuthCredentialsService } from '../authCredentialsType';
@@ -12,6 +12,7 @@ export const AuthCredentialsContext = createContext<AuthCredentialsService>({
   userId: null,
   saveCredentials: async () => {},
   removeCredentials: async () => {},
+  updateUser: () => {},
 });
 export function AuthCredentialsProvider({
   children,
@@ -56,11 +57,18 @@ export function AuthCredentialsProvider({
 
     setAuthCredentials(ac);
   }
+
   async function removeCredentials(): Promise<void> {
     authCredentialsStorage.remove();
     authService.removeToken();
 
     setAuthCredentials(null);
+  }
+
+  function updateUser(user: User) {
+    if (authCredentials) {
+      saveCredentials({ ...authCredentials, user });
+    }
   }
 
   const userId = authCredentials?.user.id || null;
@@ -73,6 +81,7 @@ export function AuthCredentialsProvider({
         saveCredentials,
         removeCredentials,
         userId,
+        updateUser,
       }}
     >
       {children}

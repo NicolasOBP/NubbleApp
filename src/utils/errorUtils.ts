@@ -4,7 +4,7 @@ type ErrorWithMessage = {
   message: string;
 };
 
-function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+export function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   return (
     typeof error === 'object' &&
     error !== null &&
@@ -13,7 +13,7 @@ function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   );
 }
 
-function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
+export function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   if (isErrorWithMessage(maybeError)) return maybeError;
 
   try {
@@ -30,14 +30,14 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
  *
  * Reference: https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
  */
-function getErrorMessage(error: unknown) {
+export function getErrorMessage(error: unknown) {
   const axiosErrorMessage = tryGetAxiosErrorMessage(error);
   if (axiosErrorMessage) return axiosErrorMessage;
 
   return toErrorWithMessage(error).message;
 }
 
-function tryGetAxiosErrorMessage(error: unknown): string | null {
+export function tryGetAxiosErrorMessage(error: unknown): string | null {
   try {
     if (axios.isAxiosError(error)) {
       const response = error.response;
@@ -61,4 +61,5 @@ function tryGetAxiosErrorMessage(error: unknown): string | null {
     return null;
   }
 }
+
 export const errorUtils = { getErrorMessage };

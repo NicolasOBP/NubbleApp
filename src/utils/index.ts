@@ -1,3 +1,3 @@
 export * from './dateUtils';
 export * from './stringUtils';
-export * from './errorUtils';
+export { errorUtils } from './errorUtils';

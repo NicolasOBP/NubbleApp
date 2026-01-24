@@ -4,18 +4,18 @@ import { followService } from '@domain';
 import { QueryKeys } from '@infra';
 import { UserListTemplate } from '@templates';
 
-export function MyFollowingScreen() {
+export function MyFollowersScreen() {
   return (
     <UserListTemplate
       button={{
         onPress: followUser => console.log(followUser),
-        title: 'Seguindo',
+        title: 'Remover',
       }}
-      emptyMessage="Você ainda não está seguindo ninguém"
-      getUserList={followService.getMyFollowingList}
-      queryKey={QueryKeys.MyFollowingList}
-      screenTitle="Seguindo"
-      totalText="seguindo"
+      emptyMessage="Você ainda não tem nenhum seguidor"
+      getUserList={followService.getMyFollowersList}
+      queryKey={QueryKeys.MyFollowersList}
+      screenTitle="Seguidores"
+      totalText="seguidores"
     />
   );
 }

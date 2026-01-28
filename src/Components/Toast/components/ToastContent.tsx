@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Dimensions } from 'react-native';
 
@@ -14,9 +13,10 @@ const MAX_WIDTH = Dimensions.get('screen').width * 0.9;
 
 interface Props {
   toast: Toast;
+  hideToast: () => void;
 }
 
-export function ToastContent({ toast }: Props) {
+export function ToastContent({ toast, hideToast }: Props) {
   const type: ToastType = toast?.type || 'success';
 
   return (
@@ -25,6 +25,20 @@ export function ToastContent({ toast }: Props) {
       <Text style={{ flexShrink: 1 }} ml="s16" preset="paragraphMedium" bold>
         {toast.message}
       </Text>
+      {toast.action && (
+        <Text
+          ml="s8"
+          color="marked"
+          preset="paragraphMedium"
+          bold
+          onPress={() => {
+            toast?.action?.onPress();
+            hideToast();
+          }}
+        >
+          {toast.action.title}
+        </Text>
+      )}
     </Box>
   );
 }

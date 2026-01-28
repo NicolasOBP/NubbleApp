@@ -17,6 +17,7 @@ type Props = {
   button: {
     title: string;
     onPress: (user: FollowUser) => void;
+    loading?: boolean;
   };
   getUserList: (page: number) => Promise<Page<FollowUser>>;
   screenTitle: string;
@@ -43,6 +44,7 @@ export function UserListTemplate({
             title={button.title}
             onPress={() => button.onPress(item)}
             preset="gray"
+            loading={button.loading}
           />
         }
       />

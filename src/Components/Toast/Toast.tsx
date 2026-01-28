@@ -57,7 +57,7 @@ export function Toast() {
         [position]: 100,
       }}
     >
-      <ToastContent toast={toast} />
+      <ToastContent toast={toast} hideToast={hideToast} />
     </Animated.View>
   );
 }

@@ -11,6 +11,7 @@ async function isFollowing(userId: string): Promise<{ isFollowing: boolean }> {
 }
 
 async function followUser(userId: number): Promise<FollowingUserApi> {
+  await new Promise(resolve => setTimeout(resolve, 2000));
   const response = await API.post<FollowingUserApi>(
     'user/follow',
     {},

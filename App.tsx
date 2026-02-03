@@ -3,6 +3,10 @@
 //   initializeStorate,
 //   MMKVStorage,
 // } from '@service';
+import { useEffect } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
+
+import messaging from '@react-native-firebase/messaging';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -19,8 +23,29 @@ const queryClient = new QueryClient();
 
 initializeStorate(MMKVStorage);
 
+async function requestPermission() {
+  if (Platform.OS === 'ios') {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  } else {
+    PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    );
+  }
+}
+
 function App() {
   const appColor = useAppColorScheme();
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <AuthCredentialsProvider>

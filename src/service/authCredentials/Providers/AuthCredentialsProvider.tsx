@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import { registerInterceptor } from '@api';
-import { AuthCredentials, authService, User } from '@domain';
+import { AuthCredentials, authService, User, userService } from '@domain';
 
 import { authCredentialsStorage } from '../authCredentialsStorage';
 import { AuthCredentialsService } from '../authCredentialsType';
@@ -59,6 +59,8 @@ export function AuthCredentialsProvider({
   }
 
   async function removeCredentials(): Promise<void> {
+    await userService.deleteNotificationToken();
+
     authCredentialsStorage.remove();
     authService.removeToken();
 

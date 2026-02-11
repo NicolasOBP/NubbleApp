@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import messaging from '@react-native-firebase/messaging';
+import { notificationService } from '@service';
 import { useMutation } from '@tanstack/react-query';
 
 import { userService } from '../userService';
@@ -13,7 +13,7 @@ export function useSaveNotificationToken() {
 
   async function saveNotificationToken() {
     try {
-      const token = await messaging().getToken();
+      const token = await notificationService.getToken();
       mutation.mutate(token);
     } catch (error) {
       console.log(error);

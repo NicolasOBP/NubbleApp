@@ -65,5 +65,10 @@ jest.mock('@react-native-firebase/messaging', () => {
     onNotificationOpenedApp: jest.fn(),
   });
 });
+jest.mock('@react-native-firebase/app', () => {
+  return () => ({
+    getApp: jest.fn(),
+  });
+});
 
 initializeStorate(inMemoryStorage);

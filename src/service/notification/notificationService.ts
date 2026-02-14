@@ -3,6 +3,7 @@ import {
   getMessaging,
   getToken as getTokenRN,
   getInitialNotification as getInitialNotificationRN,
+  onNotificationOpenedApp as onNotificationOpenedAppRN,
 } from '@react-native-firebase/messaging';
 
 import { NotificationToNavigate } from './notificationTypes';
@@ -18,9 +19,9 @@ async function getToken() {
 async function getInitialNotification(): Promise<NotificationToNavigate | null> {
   const app = getApp();
   const messaging = getMessaging(app);
-  const notification = await getInitialNotificationRN(messaging);
-  if (notification?.data) {
-    return getActionFromNotificationData(notification.data);
+  const remoteMessage = await getInitialNotificationRN(messaging);
+  if (remoteMessage?.data) {
+    return getActionFromNotificationData(remoteMessage.data);
   }
   return null;
 }
@@ -41,4 +42,23 @@ function getActionFromNotificationData(data: {
   return null;
 }
 
-export const notificationService = { getToken, getInitialNotification };
+function onNotificationOpenedApp(
+  listener: (action: NotificationToNavigate | null) => void,
+): () => void {
+  const app = getApp();
+  const messaging = getMessaging(app);
+  const unsubscribe = onNotificationOpenedAppRN(messaging, remoteMessage => {
+    if (remoteMessage.data) {
+      const action = getActionFromNotificationData(remoteMessage.data);
+      listener(action);
+    }
+  });
+
+  return unsubscribe;
+}
+
+export const notificationService = {
+  getToken,
+  getInitialNotification,
+  onNotificationOpenedApp,
+};

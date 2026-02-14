@@ -59,16 +59,18 @@ jest.mock('react-native-bootsplash', () => {
 });
 
 jest.mock('@react-native-firebase/messaging', () => {
-  return () => ({
+  return {
+    getMessaging: jest.fn(),
     getToken: jest.fn(),
     getInitialNotification: jest.fn(),
     onNotificationOpenedApp: jest.fn(),
-  });
+  };
 });
+
 jest.mock('@react-native-firebase/app', () => {
-  return () => ({
+  return {
     getApp: jest.fn(),
-  });
+  };
 });
 
 initializeStorate(inMemoryStorage);

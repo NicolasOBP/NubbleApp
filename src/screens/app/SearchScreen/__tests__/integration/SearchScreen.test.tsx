@@ -1,17 +1,17 @@
-import { authCredentialsStorage } from '@service';
+import { authCredentialsStorage, permissionService } from '@service';
 import { mockUtils, server, userMocked } from '@test';
-import { act, fireEvent, renderScreen, screen } from 'test-utils';
+import { fireEvent, renderScreen, screen } from 'test-utils';
 
 import { AppStack } from '@routes';
 
 jest.unmock('@react-navigation/native');
 
 beforeAll(() => {
-  server.listen();
-  jest.useFakeTimers();
+  server.listen({ onUnhandledRequest: 'error' });
   jest
     .spyOn(authCredentialsStorage, 'get')
     .mockResolvedValue(mockUtils.mateusAuthCredentials);
+  jest.spyOn(permissionService, 'check').mockResolvedValue('granted');
 });
 
 afterEach(() => {
@@ -21,7 +21,6 @@ afterEach(() => {
 afterAll(() => {
   server.close();
   jest.resetAllMocks();
-  jest.useRealTimers();
 });
 
 describe('integration: SearchScreen', () => {
@@ -32,7 +31,6 @@ describe('integration: SearchScreen', () => {
     // 2) Find the Search Input and type username
     const inputText = screen.getByPlaceholderText(/digite sua busca/i);
     fireEvent.changeText(inputText, 'mar');
-    act(() => jest.runAllTimers());
 
     // 3) Find two users as per the MSW mock
     const flatList = await screen.findByTestId('test');
@@ -58,7 +56,6 @@ describe('integration: SearchScreen', () => {
     // 7) Clean the search input
     const inputTextAfterBack = screen.getByPlaceholderText(/digite sua busca/i);
     fireEvent.changeText(inputTextAfterBack, '');
-    act(() => jest.runAllTimers());
 
     // 8) Make sure the search history section appears
     const searchHistoryTitle = screen.getByText(/buscas recentes/i);

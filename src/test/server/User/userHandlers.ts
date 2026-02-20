@@ -26,4 +26,10 @@ export const userHandlers = [
   http.get(`${BASE_URL}user/follow/is-following/:id`, async () => {
     return HttpResponse.json({ isFollowing: true }, { status: 200 });
   }),
+  http.post(`${BASE_URL}users/notification-token`, async () => {
+    return HttpResponse.json('token', { status: 200 });
+  }),
+  http.delete(`${BASE_URL}users/notification-token`, async () => {
+    return HttpResponse.json('token', { status: 200 });
+  }),
 ];

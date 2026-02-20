@@ -49,6 +49,9 @@ function mapNameToPermission(name: PermissionName): Permission | null {
       case 'camera': {
         return 'android.permission.CAMERA';
       }
+      case 'notification': {
+        return 'android.permission.POST_NOTIFICATIONS';
+      }
       default:
         return null;
     }
